@@ -102,37 +102,99 @@
       background: radial-gradient(circle at 80% -10%, rgba(240,138,31,0.10), transparent 50%);
     }
 
-    /* Visual #1 — Coach-card */
-    .va-coach { display: flex; gap: 14px; align-items: flex-start;
-      background: var(--tz-card); border-radius: var(--tz-radius-card); padding: 18px;
-      position: relative; z-index: 1;
-    }
-    .va-coach-ico {
-      width: 38px; height: 38px; border-radius: 999px; flex: none;
-      background: linear-gradient(135deg, var(--tz-accent), #B85F0C);
-      display: grid; place-items: center;
-      box-shadow: 0 0 0 4px rgba(240,138,31,0.12);
-    }
-    .va-coach-ico svg { width: 20px; height: 20px; color: #1A1004; }
-    .va-coach-body { flex: 1; min-width: 0; }
-    .va-coach-name { font-size: 12px; color: var(--tz-fg-mute); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
-    .va-coach-msg { font-size: 15px; line-height: 1.45; color: var(--tz-fg); }
+    /* ---- Widget mocks — mirror the real Tenzo in-app components ----
+       Reference: HeroCalorieRing + ToolActionWidget + chat bubbles.
+       Goal: feel like a real app screen, not generic feature cards. */
 
-    /* Visual #2 — Donut */
-    .va-donut {
+    /* Voice user bubble (right-aligned, mic-tinted) */
+    .va-user-bubble {
       position: relative; z-index: 1;
-      display: flex; gap: 18px; align-items: center;
-      background: var(--tz-card); border-radius: var(--tz-radius-card); padding: 20px;
+      align-self: flex-end;
+      max-width: 86%;
+      display: flex; gap: 10px; align-items: flex-start;
+      padding: 12px 16px;
+      background: rgba(247,147,26,0.10);
+      border: 1px solid rgba(247,147,26,0.18);
+      border-radius: 18px 18px 4px 18px;
+      color: #F0EBE3;
+      font-size: 15px; line-height: 1.4;
     }
-    .va-donut-ring { width: 96px; height: 96px; flex: none; }
-    .va-donut-body { flex: 1; }
-    .va-donut-eye { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tz-fg-mute); }
-    .va-donut-big { font-size: 32px; font-weight: 500; font-variant-numeric: tabular-nums; }
-    .va-donut-sub { color: var(--tz-fg-faint); font-size: 12px; }
-    .va-pill-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
-    .va-pill-row span {
-      font-size: 11px; padding: 3px 8px; border-radius: 999px;
-      background: rgba(0,0,0,0.30); font-variant-numeric: tabular-nums;
+    .va-user-bubble svg { width: 14px; height: 14px; color: var(--tz-accent); flex: none; margin-top: 4px; }
+
+    /* Tool-action widget (used for log_meal confirmations) */
+    .va-tool-list {
+      position: relative; z-index: 1;
+      padding-left: 14px; margin-left: 4px;
+      border-left: 1px solid rgba(240,235,227,0.10);
+      display: flex; flex-direction: column; gap: 6px;
+      color: #C8C0B0;
+      font-size: 14px; line-height: 1.5;
+    }
+    .va-tool-row { display: flex; gap: 8px; align-items: baseline; }
+    .va-tool-row .va-ok { color: #7DB47E; font-weight: 600; font-size: 14px; flex: none; }
+    .va-tool-row .va-label { color: #F0EBE3; font-weight: 500; }
+    .va-tool-row .va-detail { color: #8C8478; font-variant-numeric: tabular-nums; }
+
+    /* Summary footer line under a tool list */
+    .va-summary {
+      position: relative; z-index: 1;
+      margin-top: 4px; padding-left: 18px;
+      color: var(--tz-fg-mute); font-size: 13px;
+      font-variant-numeric: tabular-nums;
+    }
+    .va-summary .va-sum-kcal { color: var(--tz-accent); font-weight: 500; }
+
+    /* HeroCalorieRing — replica of components/bottom-sheet/HeroCalorieRing.tsx */
+    .va-ring-card {
+      position: relative; z-index: 1;
+      background: #1A1A18;
+      border-radius: 16px;
+      padding: 18px;
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .va-ring-top { display: flex; gap: 16px; align-items: center; }
+    .va-ring-svg { width: 110px; height: 110px; flex: none; position: relative; }
+    .va-ring-pct {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      pointer-events: none;
+    }
+    .va-ring-pct-num { color: var(--tz-accent); font-family: var(--tz-font-display); font-weight: 600; font-size: 22px; line-height: 1; }
+    .va-ring-pct-eye { color: rgba(240,235,227,0.4); font-size: 10px; letter-spacing: 0.15em; margin-top: 4px; }
+    .va-ring-hero { flex: 1; }
+    .va-ring-eye { color: rgba(240,235,227,0.4); font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; }
+    .va-ring-big { font-size: 38px; font-weight: 600; font-variant-numeric: tabular-nums; line-height: 1.05; letter-spacing: -0.025em; margin-top: 2px; }
+    .va-ring-sub { color: var(--tz-fg-faint); font-size: 13px; margin-top: 4px; font-variant-numeric: tabular-nums; }
+
+    /* Macro pills row — small dot + "P 49/236" label */
+    .va-pills { display: flex; gap: 8px; flex-wrap: wrap; }
+    .va-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 6px 10px; border-radius: 999px;
+      background: rgba(240,235,227,0.04);
+      font-size: 12px; color: #F0EBE3; font-variant-numeric: tabular-nums;
+      font-weight: 500;
+    }
+    .va-pill::before {
+      content: ""; width: 6px; height: 6px; border-radius: 3px;
+      background: var(--c, var(--tz-accent));
+    }
+
+    /* Coach chat bubble (assistant message in the chat) */
+    .va-asst-bubble {
+      position: relative; z-index: 1;
+      align-self: flex-start;
+      max-width: 92%;
+      padding: 12px 16px;
+      background: rgba(240,235,227,0.04);
+      border-radius: 18px 18px 18px 4px;
+      color: #F0EBE3;
+      font-size: 14px; line-height: 1.5;
+    }
+    .va-asst-bubble .va-asst-name {
+      font-size: 10px; color: rgba(240,235,227,0.4);
+      letter-spacing: 0.18em; text-transform: uppercase;
+      margin-bottom: 6px;
     }
 
     /* Visual #3 — Day-strip (re-used for past-meal recall feature) */
@@ -213,7 +275,7 @@
           <a href="#signup" class="tzw-btn tzw-btn-primary">Auf die Beta-Liste</a>
           <a href="#features" class="tzw-btn tzw-btn-ghost">Wie es funktioniert</a>
         </div>
-        <div class="va-mini">Geschlossene Beta · Einladung per Email · auf Deutsch</div>
+        <div class="va-mini">Geschlossene Beta · Einladung per E-Mail · auf Deutsch</div>
       </div>
       <div>
         <div data-tenzo-voice-demo></div>
@@ -241,32 +303,40 @@
         <h2 class="tzw-h2">Sag's einfach. <br/>Tenzo versteht.</h2>
         <p>
           Keine Datenbank, keine Mengen-Slider, keine Pflichtfelder. Sag „200 Gramm Hähnchen mit
-          Reis und Brokkoli" und Tenzo trägt drei separate Einträge mit korrekten Makros ein —
-          inklusive sinnvoller Defaults, wenn du keine Mengen nennst.
+          Reis und Brokkoli" und Tenzo legt drei separate Einträge mit korrekten Makros an —
+          inklusive sinnvoller Standardmengen, wenn du keine Gramm-Angabe nennst.
         </p>
       </div>
       <div class="va-visual">
-        <div class="va-coach">
-          <div class="va-coach-ico">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="9" y="3" width="6" height="12" rx="3"/>
-              <path d="M5 11a7 7 0 0 0 14 0"/>
-              <path d="M12 18v3"/>
-            </svg>
+        <!-- User-side voice message bubble (right-aligned, mic-tinted) -->
+        <div class="va-user-bubble">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="3" width="6" height="12" rx="3"/>
+            <path d="M5 11a7 7 0 0 0 14 0"/>
+            <path d="M12 18v3"/>
+          </svg>
+          <span>„Zum Mittagessen 200 Gramm Hähnchenbrust, 250 Gramm Reis und etwas Brokkoli"</span>
+        </div>
+        <!-- Tool-action confirmation list (matches ToolActionWidget) -->
+        <div class="va-tool-list">
+          <div class="va-tool-row">
+            <span class="va-ok">✓</span>
+            <span class="va-label">Hähnchenbrust, gegrillt</span>
+            <span class="va-detail">200 g · 330 kcal</span>
           </div>
-          <div class="va-coach-body">
-            <div class="va-coach-name">Tenzo · 12:31</div>
-            <div class="va-coach-msg">„Mittagessen: 200 g Hähnchenbrust, 250 g Reis und etwas Brokkoli"</div>
+          <div class="va-tool-row">
+            <span class="va-ok">✓</span>
+            <span class="va-label">Reis, gekocht</span>
+            <span class="va-detail">250 g · 325 kcal</span>
+          </div>
+          <div class="va-tool-row">
+            <span class="va-ok">✓</span>
+            <span class="va-label">Brokkoli</span>
+            <span class="va-detail">150 g · 51 kcal</span>
           </div>
         </div>
-        <div class="va-coach">
-          <div class="va-coach-ico" style="background: linear-gradient(135deg, #C9A07A, #8C6B49);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-          </div>
-          <div class="va-coach-body">
-            <div class="va-coach-name">Erkannt · 3 Einträge</div>
-            <div class="va-coach-msg">706 kcal · 52 g Protein · 77 g Kohlenh. · 8 g Fett</div>
-          </div>
+        <div class="va-summary">
+          <span class="va-sum-kcal">706 kcal</span> · 52 g P · 77 g K · 8 g F
         </div>
       </div>
     </section>
@@ -277,38 +347,47 @@
         <span class="tzw-eyebrow">Coaching, nicht Kontrolle</span>
         <h2 class="tzw-h2">Ein Coach.<br/>Kein Buchhalter.</h2>
         <p>
-          Tenzo zählt nicht nur Zahlen zusammen. Du bekommst kurze, konkrete Hinweise auf deinem
+          Tenzo summiert nicht nur Zahlen. Du bekommst kurze, konkrete Hinweise auf deinem
           Niveau — egal, ob du gerade erst anfängst oder seit Jahren trackst. Wöchentliche
-          Coaching-Check-ins fassen deine Woche zusammen, und Tenzo merkt sich, was dir wichtig
-          ist. Kein Streak-Druck. Nur das Nötige.
+          Check-ins fassen deine Woche zusammen, und Tenzo merkt sich, was dir wichtig ist.
+          Kein Streak-Druck, kein Drama. Nur das Nötige.
         </p>
       </div>
       <div class="va-visual">
-        <div class="va-donut">
-          <svg class="va-donut-ring" viewBox="0 0 96 96">
-            <circle cx="48" cy="48" r="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8"/>
-            <circle cx="48" cy="48" r="40" fill="none" stroke="var(--tz-accent)" stroke-width="8"
-                    stroke-dasharray="180 251" stroke-linecap="round" transform="rotate(-90 48 48)"/>
-          </svg>
-          <div class="va-donut-body">
-            <div class="va-donut-eye">kcal übrig</div>
-            <div class="va-donut-big">1.412</div>
-            <div class="va-donut-sub">von 2.604 · 54%</div>
-            <div class="va-pill-row">
-              <span style="color: var(--tz-protein)">P 49/236</span>
-              <span style="color: var(--tz-carbs)">K 38/222</span>
-              <span style="color: var(--tz-fat)">F 8/86</span>
+        <!-- HeroCalorieRing — replica of the in-app widget -->
+        <div class="va-ring-card">
+          <div class="va-ring-top">
+            <div class="va-ring-svg">
+              <svg width="110" height="110" viewBox="0 0 110 110">
+                <circle cx="55" cy="55" r="51" fill="none" stroke="#2E2A24" stroke-width="8"/>
+                <circle cx="55" cy="55" r="51" fill="none" stroke="#F7931A" stroke-width="8"
+                        stroke-linecap="round"
+                        stroke-dasharray="320.44 320.44"
+                        stroke-dashoffset="147.4"
+                        transform="rotate(-90 55 55)"/>
+              </svg>
+              <div class="va-ring-pct">
+                <div class="va-ring-pct-num">54%</div>
+                <div class="va-ring-pct-eye">TAG</div>
+              </div>
+            </div>
+            <div class="va-ring-hero">
+              <div class="va-ring-eye">kcal übrig</div>
+              <div class="va-ring-big">1.412</div>
+              <div class="va-ring-sub">1.192 verbraucht · Ziel 2.604</div>
             </div>
           </div>
+          <div class="va-pills">
+            <span class="va-pill" style="--c: var(--tz-protein);">P 49 / 236</span>
+            <span class="va-pill" style="--c: var(--tz-carbs);">K 38 / 222</span>
+            <span class="va-pill" style="--c: var(--tz-fat);">F 8 / 86</span>
+          </div>
         </div>
-        <div class="va-coach">
-          <div class="va-coach-ico" style="background: linear-gradient(135deg, #6FBF73, #3F8F45);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><circle cx="12" cy="12" r="4"/></svg>
-          </div>
-          <div class="va-coach-body">
-            <div class="va-coach-name">Coach · vor 8 min</div>
-            <div class="va-coach-msg">„Du bist noch 64 g Protein unter Ziel. Ein Skyr abends würde es ausgleichen."</div>
-          </div>
+
+        <!-- Coach message — assistant chat bubble -->
+        <div class="va-asst-bubble">
+          <div class="va-asst-name">Tenzo · vor 8 Min.</div>
+          „Dir fehlen noch 64 g Protein zum Tagesziel. Ein Skyr abends würde das ausgleichen."
         </div>
       </div>
     </section>
@@ -321,28 +400,42 @@
         <p>
           Foto vom Teller → Tenzo schätzt Mengen und Makros. Foto vom Etikett → Nährwerte,
           Zutatenliste, Allergene und Mikronährstoffe landen direkt in deiner persönlichen
-          Lebensmittel-Datenbank. Barcode scannen geht natürlich auch. Egal welches Foto:
-          Tenzo erkennt automatisch, was er vor sich hat.
+          Lebensmittel-Datenbank. Barcodes lassen sich natürlich auch scannen. Egal welches
+          Foto du machst: Tenzo erkennt automatisch, was darauf zu sehen ist.
         </p>
       </div>
       <div class="va-visual">
-        <div class="va-coach">
-          <div class="va-coach-ico" style="background: linear-gradient(135deg, #E0A24A, #8C5F1C);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
-          </div>
-          <div class="va-coach-body">
-            <div class="va-coach-name">Foto erkannt · Mittagessen</div>
-            <div class="va-coach-msg">Hähnchen, Reis, Brokkoli — Mengen geschätzt, du kannst nachjustieren.</div>
+        <!-- Photo-meal confirmation as a tool-action list -->
+        <div class="va-asst-bubble" style="max-width: 100%; align-self: stretch;">
+          <div class="va-asst-name">Foto erkannt · Mittagessen</div>
+          <div class="va-tool-list" style="margin-top: 6px; padding-left: 0; border-left: none;">
+            <div class="va-tool-row">
+              <span class="va-ok">✓</span>
+              <span class="va-label">Hähnchenbrust</span>
+              <span class="va-detail">~200 g</span>
+            </div>
+            <div class="va-tool-row">
+              <span class="va-ok">✓</span>
+              <span class="va-label">Reis, gekocht</span>
+              <span class="va-detail">~250 g</span>
+            </div>
+            <div class="va-tool-row">
+              <span class="va-ok">✓</span>
+              <span class="va-label">Brokkoli</span>
+              <span class="va-detail">~150 g</span>
+            </div>
           </div>
         </div>
-        <div class="va-coach">
-          <div class="va-coach-ico" style="background: linear-gradient(135deg, #C9A07A, #8C6B49);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10"/><path d="M7 12h10"/><path d="M7 16h6"/></svg>
+        <!-- Etikett-Scan result — tool-action style -->
+        <div class="va-tool-list">
+          <div class="va-tool-row">
+            <span class="va-ok">✓</span>
+            <span class="va-label">Holy Hydration</span>
+            <span class="va-detail">in Lebensmittel-Datenbank gespeichert</span>
           </div>
-          <div class="va-coach-body">
-            <div class="va-coach-name">Etikett gespeichert</div>
-            <div class="va-coach-msg">Holy Hydration · 250 kcal · B12 2,5 µg · Kalium 600 mg · Zutaten gespeichert.</div>
-          </div>
+        </div>
+        <div class="va-summary">
+          250 kcal · B12 2,5 µg · Kalium 600 mg · Zutaten gespeichert
         </div>
       </div>
     </section>
@@ -355,8 +448,7 @@
         <p>
           Tenzo erinnert sich an deine vergangenen Tage. Sag „tracke mein Frühstück wie gestern"
           und alle Komponenten landen wieder im Tagesplan — mit den richtigen Mengen. Frag nach
-          einem Wochenüberblick und Tenzo fasst dir kurz zusammen, wo du standest und worauf es
-          ankommt.
+          deiner Wochenübersicht und Tenzo fasst dir kurz zusammen, wo du gerade stehst.
         </p>
       </div>
       <div class="va-visual">
@@ -391,32 +483,49 @@
     <section class="va-feature">
       <div class="va-feature-text">
         <span class="tzw-eyebrow">Privatsphäre</span>
-        <h2 class="tzw-h2">Dein Essen<br/>geht uns nichts an.</h2>
+        <h2 class="tzw-h2">Dein Essen<br/>geht mich nichts an.</h2>
         <p>
-          Tenzo läuft auf Servern in Frankfurt. Voice-Eingaben werden zur Transkription kurz
-          verarbeitet und sofort danach gelöscht — keine Audio-Archive. Deine Mahlzeiten und
-          Profildaten gehören dir: Export und Löschen mit einem Tipp, kein Modelltraining auf
-          deinen Daten, kein Werbe-Tracking, kein Verkauf an Dritte.
+          Tenzo läuft auf Servern in Frankfurt. Spracheingaben werden zur Transkription kurz
+          verarbeitet, dauerhaft gespeichert wird nichts. Deine Mahlzeiten und Profildaten gehören
+          dir: Export und Löschen mit einem Tipp, kein Modelltraining auf deinen Daten, kein
+          Werbe-Tracking, kein Verkauf an Dritte. Details stehen in der
+          <a href="datenschutz/" style="color: var(--tz-accent); text-decoration: underline; text-underline-offset: 2px;">Datenschutzerklärung</a>.
         </p>
       </div>
       <div class="va-visual">
-        <div class="va-coach">
-          <div class="va-coach-ico" style="background: linear-gradient(135deg, #BFBFBF, #6E6E6E);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+        <!-- Privacy posture as a tool-action checklist (consistent with the
+             other feature visuals — all use the same in-app widget vocabulary). -->
+        <div class="va-tool-list">
+          <div class="va-tool-row">
+            <span class="va-ok">✓</span>
+            <span class="va-label">EU-Hosting</span>
+            <span class="va-detail">Supabase · Frankfurt</span>
           </div>
-          <div class="va-coach-body">
-            <div class="va-coach-name">EU-Hosting</div>
-            <div class="va-coach-msg">Daten in Frankfurt. Kein Modelltraining auf deinen Mahlzeiten.</div>
+          <div class="va-tool-row">
+            <span class="va-ok">✓</span>
+            <span class="va-label">Kein Modelltraining</span>
+            <span class="va-detail">auf deinen Daten</span>
+          </div>
+          <div class="va-tool-row">
+            <span class="va-ok">✓</span>
+            <span class="va-label">Kein Werbe-Tracking</span>
+            <span class="va-detail">keine Drittanbieter-Analytics</span>
+          </div>
+          <div class="va-tool-row">
+            <span class="va-ok">✓</span>
+            <span class="va-label">Audio nicht gespeichert</span>
+            <span class="va-detail">nur kurz zur Transkription</span>
+          </div>
+          <div class="va-tool-row">
+            <span class="va-ok">✓</span>
+            <span class="va-label">Export &amp; Löschen</span>
+            <span class="va-detail">jederzeit, ein Tipp</span>
           </div>
         </div>
-        <div class="va-coach">
-          <div class="va-coach-ico" style="background: linear-gradient(135deg, #7AB6E8, #3D6E94);">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </div>
-          <div class="va-coach-body">
-            <div class="va-coach-name">Du behältst die Kontrolle</div>
-            <div class="va-coach-msg">Export und Account-Löschung jederzeit in den Einstellungen.</div>
-          </div>
+        <!-- Friendly assistant follow-up bubble -->
+        <div class="va-asst-bubble">
+          <div class="va-asst-name">Tenzo</div>
+          „Deine Daten sind deine Daten. Wenn du gehst, geht alles mit — ohne Rückfrage."
         </div>
       </div>
     </section>
@@ -429,32 +538,32 @@
 
       <details>
         <summary>Kann ich Tenzo schon nutzen?</summary>
-        <p>Tenzo ist aktuell in einer geschlossenen Beta. Wir laden in kleinen Wellen ein — meistens innerhalb von ein bis zwei Wochen, nachdem du dich auf die Liste gesetzt hast. Schreib uns kurz und du bist dabei, sobald wir wieder Plätze frei haben.</p>
+        <p>Tenzo ist aktuell in einer geschlossenen Beta. Ich lade in kleinen Wellen ein — meistens innerhalb von ein bis zwei Wochen, nachdem du dich auf die Liste gesetzt hast. Schreib mir kurz, dann bist du dabei, sobald wieder Plätze frei werden.</p>
       </details>
 
       <details>
         <summary>Welche Sprache wird unterstützt?</summary>
-        <p>Tenzo ist aktuell auf Deutsch optimiert — vom Voice-Modell bis zur Coaching-Sprache. Englisch und andere Sprachen sind frühestens nach dem Beta-Ende geplant.</p>
+        <p>Tenzo ist aktuell auf Deutsch optimiert — von der Spracherkennung bis zur Coaching-Sprache. Englisch und andere Sprachen sind frühestens nach dem Beta-Ende geplant.</p>
       </details>
 
       <details>
         <summary>Was passiert, wenn Tenzo etwas falsch versteht?</summary>
-        <p>Jeder erkannte Eintrag lässt sich direkt korrigieren — Menge, Lebensmittel oder Makros. Falls Tenzo komplett daneben liegt, kannst du den Eintrag löschen und neu sprechen oder per Foto bzw. Barcode tracken.</p>
+        <p>Jeder erkannte Eintrag lässt sich direkt korrigieren — Menge, Lebensmittel oder Makros. Falls Tenzo komplett daneben liegt, kannst du den Eintrag löschen und es noch mal sagen oder per Foto bzw. Barcode tracken.</p>
       </details>
 
       <details>
         <summary>Welche Daten sammelt Tenzo?</summary>
-        <p>Nur was nötig ist: deine Mahlzeiten, dein Gewicht, deine Ziele. Optional Apple Health bzw. Health Connect, wenn du es selbst freigibst. Kein Werbe-Tracking, keine Drittanbieter-Analytics. Die vollständige Liste steht in der <a href="datenschutz/">Datenschutzerklärung</a>.</p>
+        <p>Nur was nötig ist: deine Mahlzeiten, dein Gewicht, deine Ziele. Optional Apple Health bzw. Health Connect, wenn du die Verbindung selbst freigibst. Kein Werbe-Tracking, keine Drittanbieter-Analytics. Die vollständige Liste steht in der <a href="datenschutz/">Datenschutzerklärung</a>.</p>
       </details>
 
       <details>
         <summary>Kostet Tenzo etwas?</summary>
-        <p>Die Beta ist kostenlos. Wie das Preismodell nach dem Beta-Ende aussieht, entscheiden wir gemeinsam mit den Beta-Nutzer:innen — finale Preise und Featureset stehen noch nicht fest.</p>
+        <p>Die Beta ist kostenlos. Wie das Preismodell nach dem Beta-Ende aussieht, entscheide ich gemeinsam mit den Beta-Nutzer:innen — finale Preise und Funktionsumfang stehen noch nicht fest.</p>
       </details>
 
       <details>
         <summary>Wer steckt hinter Tenzo?</summary>
-        <p>Tenzo ist ein Solo-Projekt aus Deutschland — gebaut von einer Person, die selbst trackt und einen Coach wollte statt eine Tabelle. Kontakt und alle rechtlichen Angaben findest du im <a href="impressum/">Impressum</a>.</p>
+        <p>Tenzo ist ein Solo-Projekt aus Deutschland — gebaut von einer Person, die selbst trackt und einen Coach wollte statt einer Tabelle. Kontakt und alle rechtlichen Angaben findest du im <a href="impressum/">Impressum</a>.</p>
       </details>
     </div>
   </section>
@@ -464,11 +573,11 @@
     <div class="tzw-wrap">
       <h2 class="tzw-h2">Beta-Liste.<br/>Per Einladung.</h2>
       <p>
-        Tenzo ist aktuell per Einladung zugänglich — wir laden in kleinen Wellen ein, damit jede·r
-        Beta-Nutzer:in echte Aufmerksamkeit bekommt. Schreib uns kurz, dass du dabei sein möchtest.
+        Tenzo ist aktuell per Einladung zugänglich — ich lade in kleinen Wellen ein, damit jede·r
+        Beta-Nutzer:in echte Aufmerksamkeit bekommt. Schreib mir kurz, dass du dabei sein möchtest.
       </p>
       <a href="mailto:kontakt@mytenzo.app?subject=Beta-Liste&amp;body=Hi%2C%0A%0Aich%20w%C3%BCrde%20gerne%20zur%20Beta%20eingeladen%20werden.%0A%0AViele%20Gr%C3%BC%C3%9Fe" class="tzw-btn tzw-btn-primary">
-        Email an kontakt@mytenzo.app
+        E-Mail an kontakt@mytenzo.app
       </a>
     </div>
   </section>

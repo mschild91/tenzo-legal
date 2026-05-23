@@ -88,7 +88,7 @@
       <span class="vd-t-kcal"><span class="vd-t-num">0</span> kcal</span>
       <span class="vd-t-macros">
         <span class="vd-t-m" style="--c:var(--vdt-p)">P <span data-key="p">0</span></span>
-        <span class="vd-t-m" style="--c:var(--vdt-c)">C <span data-key="c">0</span></span>
+        <span class="vd-t-m" style="--c:var(--vdt-c)">K <span data-key="c">0</span></span>
         <span class="vd-t-m" style="--c:var(--vdt-f)">F <span data-key="f">0</span></span>
       </span>
     `;
@@ -117,14 +117,22 @@
 
   const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 
-  async function typeLine(refs, text, perChar = 28) {
-    for (let i = 0; i <= text.length; i++) {
+  // Type-on starting from where the existing text already is — so previously
+  // typed segments stay on screen instead of being wiped and re-typed
+  // (which was the main source of the hero-demo flicker).
+  async function typeLine(refs, text, perChar = 28, startAt = 0) {
+    for (let i = startAt; i <= text.length; i++) {
       refs.typed.textContent = text.slice(0, i);
       await wait(perChar + Math.random() * 18);
     }
   }
 
   async function runOnce(refs) {
+    // Cancel any animateNum tickers from a previous iteration before we
+    // reset to 0 — otherwise the prior tick keeps firing and races with
+    // the new animation, showing flicker between the two values.
+    cancelNumAnims(refs);
+
     // reset
     refs.typed.textContent = "";
     refs.list.innerHTML = "";
@@ -140,7 +148,8 @@
     let totals = { kcal: 0, p: 0, c: 0, f: 0 };
     for (let i = 0; i < SCRIPT.length; i++) {
       if (i > 0) refs.typed.textContent = refs.typed.textContent + " ";
-      await typeLine(refs, refs.typed.textContent + SCRIPT[i]);
+      const startAt = refs.typed.textContent.length;
+      await typeLine(refs, refs.typed.textContent + SCRIPT[i], 28, startAt);
       // Append entry shortly after
       await wait(180);
       const row = entryRow(ENTRIES[i]);
@@ -168,9 +177,19 @@
     refs.phone.classList.remove("vd-done");
   }
 
+  // Cancellation tokens per DOM node so a newer animateNum() call supersedes
+  // any older ticker still running on the same node. Without this, three
+  // animateNums per iteration overlap with the next iteration's reset, and
+  // the textContent visibly oscillates between old-final and new-interpolating
+  // values every frame.
+  const animTokens = new WeakMap();
+
   function animateNum(node, from, to, dur, fmt) {
+    const token = (animTokens.get(node) ?? 0) + 1;
+    animTokens.set(node, token);
     const t0 = performance.now();
     const tick = (t) => {
+      if (animTokens.get(node) !== token) return; // superseded — bail
       const k = Math.min(1, (t - t0) / dur);
       const e = 1 - Math.pow(1 - k, 3);
       const v = from + (to - from) * e;
@@ -180,16 +199,32 @@
     requestAnimationFrame(tick);
   }
 
+  function cancelNumAnims(refs) {
+    // Bump the token on every animated node so any in-flight ticker bails.
+    for (const node of [refs.tKcal, refs.tP, refs.tC, refs.tF]) {
+      animTokens.set(node, (animTokens.get(node) ?? 0) + 1);
+    }
+  }
+
   function start(mount) {
     const refs = build(mount);
     let stopped = false;
+    let running = false; // single-loop guard — IO toggling shouldn't spawn duplicates
     const loop = async () => {
-      while (!stopped) {
-        await runOnce(refs);
-        await wait(800);
+      if (running) return;
+      running = true;
+      try {
+        while (!stopped) {
+          await runOnce(refs);
+          await wait(800);
+        }
+      } finally {
+        running = false;
       }
     };
-    // Pause when offscreen for perf
+    // Pause when offscreen for perf. Toggling stopped is fine; calling loop()
+    // a second time while one is mid-iteration is what caused double-stepping
+    // before — `running` now guards that.
     const io = new IntersectionObserver((entries) => {
       for (const e of entries) {
         if (e.isIntersecting && stopped) { stopped = false; loop(); }
