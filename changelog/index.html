@@ -1,151 +1,255 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Was ist neu? – Tenzo</title>
-  <meta name="description" content="Versionshinweise und Änderungen der Tenzo App – sprachgeführter KI-Ernährungscoach." />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Changelog — Tenzo</title>
+  <meta name="description" content="Was sich in Tenzo geändert hat. Versionshinweise zu Features, Verbesserungen und Bugfixes."/>
+  <meta name="theme-color" content="#0A0A0A"/>
+  <link rel="stylesheet" href="../styles.css"/>
   <style>
-    :root {
-      --bg: #ffffff;
-      --bg-alt: #f7f6f3;
-      --text: #1a1a1a;
-      --text-muted: #555;
-      --border: #e5e3dd;
-      --accent: #8b9a6b;
-      --link: #5a6f3f;
-      --code-bg: #f0eee8;
-      --max-width: 760px;
+    .cl-hero {
+      padding: clamp(56px, 8vw, 96px) 0 clamp(40px, 5vw, 64px);
+      border-bottom: 1px solid var(--tz-line);
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #121110;
-        --bg-alt: #1c1b18;
-        --text: #f0ebe3;
-        --text-muted: #b3aea4;
-        --border: #2c2a26;
-        --accent: #8b9a6b;
-        --link: #b3c192;
-        --code-bg: #1f1e1a;
-      }
+    .cl-hero h1 { margin: 18px 0 14px; }
+    .cl-meta { color: var(--tz-fg-mute); font-size: 14px; display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+    .cl-meta a { color: var(--tz-accent); }
+
+    .cl-feed { padding: clamp(48px, 6vw, 80px) 0; }
+
+    .cl-entry {
+      display: grid; grid-template-columns: 200px 1fr; gap: 48px;
+      padding: 36px 0; border-top: 1px solid var(--tz-line);
+      align-items: start;
     }
-    * { box-sizing: border-box; }
-    html { -webkit-text-size-adjust: 100%; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      font-size: 17px;
-      line-height: 1.65;
-      color: var(--text);
-      background: var(--bg);
-      -webkit-font-smoothing: antialiased;
+    .cl-entry:first-of-type { border-top: none; padding-top: 0; }
+    @media (max-width: 720px) {
+      .cl-entry { grid-template-columns: 1fr; gap: 16px; }
     }
-    main {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 48px 20px 80px;
-    }
-    h1 {
-      font-size: 2rem;
-      line-height: 1.2;
-      margin: 0 0 8px;
-      letter-spacing: -0.02em;
-    }
-    h2 {
-      font-size: 1.4rem;
-      line-height: 1.3;
-      margin: 56px 0 0;
+    .cl-side { position: sticky; top: 88px; }
+    .cl-version {
+      font-family: var(--tz-font-mono);
+      font-size: 18px; font-weight: 500; color: var(--tz-fg);
       letter-spacing: -0.01em;
     }
-    .release {
-      padding: 32px 0;
-      border-bottom: 1px solid var(--border);
+    .cl-date {
+      font-size: 12px; color: var(--tz-fg-faint); margin-top: 4px;
+      font-variant-numeric: tabular-nums;
     }
-    .release:last-of-type {
-      border-bottom: none;
+    .cl-tag {
+      display: inline-block; margin-top: 10px;
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--tz-fg-mute); padding: 3px 8px; border-radius: 4px;
+      border: 1px solid var(--tz-line-strong);
     }
-    .release-date {
-      color: var(--text-muted);
-      font-size: 0.92rem;
-      margin: 4px 0 16px;
-      letter-spacing: 0.02em;
+    .cl-tag.beta { color: var(--tz-accent); border-color: rgba(240,138,31,0.30); }
+    .cl-tag.major { color: var(--tz-good); border-color: rgba(111,191,115,0.30); }
+
+    .cl-body h3 {
+      font-size: 22px; font-weight: 600; letter-spacing: -0.02em;
+      margin: 0 0 18px;
     }
-    p, ul, ol { margin: 0 0 16px; }
-    ul, ol { padding-left: 22px; }
-    li { margin-bottom: 6px; }
-    a {
-      color: var(--link);
-      text-decoration: underline;
-      text-underline-offset: 2px;
+    .cl-section { margin-bottom: 22px; }
+    .cl-section:last-child { margin-bottom: 0; }
+    .cl-section h4 {
+      font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--tz-fg-mute); font-weight: 500; margin: 0 0 10px;
+      display: inline-flex; align-items: center; gap: 8px;
     }
-    a:hover { text-decoration-thickness: 2px; }
-    .meta {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 32px;
+    .cl-dot {
+      width: 8px; height: 8px; border-radius: 999px; display: inline-block;
     }
-    .intro {
-      background: var(--bg-alt);
-      border-left: 3px solid var(--accent);
-      padding: 14px 18px;
-      margin: 20px 0 32px;
-      border-radius: 0 8px 8px 0;
-      font-size: 0.95rem;
+    .cl-section.added h4 .cl-dot { background: var(--tz-good); }
+    .cl-section.improved h4 .cl-dot { background: var(--tz-accent); }
+    .cl-section.fixed h4 .cl-dot { background: #7AB6E8; }
+    .cl-section.removed h4 .cl-dot { background: var(--tz-fat); }
+
+    .cl-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+    .cl-list li {
+      font-size: 15px; line-height: 1.55; color: var(--tz-fg);
+      padding-left: 18px; position: relative;
     }
-    .tag {
-      display: inline-block;
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.78rem;
-      padding: 2px 8px;
-      border-radius: 12px;
-      margin-right: 6px;
-      letter-spacing: 0.02em;
+    .cl-list li::before {
+      content: ""; position: absolute; left: 0; top: 9px;
+      width: 6px; height: 1px; background: var(--tz-fg-faint);
     }
-    footer {
-      margin-top: 64px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.9rem;
+    .cl-list li .cl-sub { color: var(--tz-fg-mute); font-size: 13px; }
+    .cl-list strong { font-weight: 500; color: var(--tz-fg); }
+
+    /* Subscribe nudge */
+    .cl-subscribe {
+      margin-top: 64px; padding: 28px;
+      background: var(--tz-card); border: 1px solid var(--tz-line);
+      border-radius: var(--tz-radius-card);
+      display: flex; gap: 24px; align-items: center; justify-content: space-between;
     }
-    footer a { color: var(--link); }
+    @media (max-width: 720px) { .cl-subscribe { flex-direction: column; align-items: flex-start; } }
+    .cl-subscribe h4 { font-size: 17px; font-weight: 600; margin: 0 0 4px; color: var(--tz-fg); letter-spacing: -0.01em; }
+    .cl-subscribe p { margin: 0; color: var(--tz-fg-mute); font-size: 14px; }
+    .cl-subscribe a {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 10px 16px; border-radius: 999px;
+      background: rgba(255,255,255,0.06); border: 1px solid var(--tz-line-strong);
+      color: var(--tz-fg); font-size: 14px; font-weight: 500;
+    }
+    .cl-subscribe a:hover { background: rgba(255,255,255,0.10); color: var(--tz-fg); }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Was ist neu?</h1>
-    <p class="meta">Tenzo App · Versionshinweise</p>
 
-    <div class="intro">
-      Hier findest du, was wir in den letzten Updates an Tenzo geändert haben. Die App lädt Updates automatisch im Hintergrund – sobald eines bereit ist, zeigt dir Tenzo eine kleine Leiste am oberen Rand mit einem Neustart-Knopf.
+  <header class="tzw-header">
+    <div class="tzw-wrap tzw-nav">
+      <a href="../" class="tzw-brand">TENZO</a>
+      <nav class="tzw-nav-links">
+        <a href="../#features">Features</a>
+        <a href="../#faq">FAQ</a>
+        <a href="./" style="color: var(--tz-fg);">Changelog</a>
+      </nav>
+      <a href="../#signup" class="tzw-nav-cta">Auf die Beta-Liste</a>
     </div>
+  </header>
 
-    <article class="release">
-      <h2>Foto-Erkennung und Update-Hinweis</h2>
-      <p class="release-date">23. Mai 2026</p>
-      <p>
-        <span class="tag">Neu</span>
-        <span class="tag">Verbesserung</span>
-      </p>
-      <ul>
-        <li><strong>Ein Foto-Knopf für alles.</strong> Statt vorher auszuwählen, ob du eine Mahlzeit oder eine Verpackung fotografierst, erkennt Tenzo jetzt selbst, was im Bild ist – Teller, Etikett, Zutaten oder etwas anderes.</li>
-        <li><strong>Etiketten merken sich mehr.</strong> Beim Scannen eines Etiketts liest Tenzo jetzt nicht nur Kalorien und Makros, sondern auch Mikronährstoffe (z.&nbsp;B. Vitamin B12, Kalium, Magnesium), die Zutatenliste, Allergene und den Nutri-Score. Du kannst auch Tage später nachfragen, was in einem gescannten Produkt war.</li>
-        <li><strong>Bessere Portions-Schätzung.</strong> Bei typischen Portionen wie Burgerbrötchen, Pizzateig oder Pasta korrigiert Tenzo unplausible Schätzungen automatisch und kennzeichnet sie mit niedriger Konfidenz, damit du sie schnell anpassen kannst.</li>
-        <li><strong>Reagiert auf alle Foto-Arten.</strong> Wenn du ein Foto schickst, das kein Lebensmittel zeigt (z.&nbsp;B. ein Selfie oder ein Screenshot), bekommst du jetzt eine freundliche Rückmeldung im Chat statt einer kommentarlosen Fehlermeldung.</li>
-        <li><strong>Tracking-Anfragen gehen nicht mehr verloren.</strong> Wenn du Tenzo bittest, ein selten getracktes Gericht zu erfassen, schätzt er die Werte aus der Kategorie und trackt es – statt stillschweigend nichts zu tun.</li>
-        <li><strong>Schutz vor doppelten Foto-Mahlzeiten.</strong> Wenn du innerhalb von 20 Minuten zweimal die gleiche Mahlzeit fotografierst, fragt Tenzo zuerst nach, ob es sich um dasselbe Essen, eine Ergänzung oder eine neue Mahlzeit handelt.</li>
-        <li><strong>Verbrauch und Tagesziel sauber getrennt.</strong> Wenn du fragst, wie viel du heute verbraucht hast, vergleicht Tenzo das nicht mehr fälschlicherweise mit deinem Kalorienziel.</li>
-        <li><strong>Update-Hinweis als Banner.</strong> Sobald eine neue Version im Hintergrund geladen wurde, zeigt Tenzo dir oben eine kleine Leiste mit einem „Jetzt neu starten"-Knopf. Du musst die App nicht mehr mehrmals schließen, damit das Update aktiv wird.</li>
-      </ul>
-    </article>
+  <section class="cl-hero">
+    <div class="tzw-wrap">
+      <span class="tzw-eyebrow">Versionshistorie</span>
+      <h1 class="tzw-h1" style="font-size: clamp(40px, 5.6vw, 72px);">Changelog</h1>
+      <p class="tzw-lede" style="margin-bottom: 16px;">Was sich in Tenzo geändert hat — Versionen, Daten, neue Features.</p>
+      <div class="cl-meta">
+        <span>Letzte Aktualisierung: 23. Mai 2026</span>
+        <span>·</span>
+        <a href="../#signup">Per Email benachrichtigen</a>
+      </div>
+    </div>
+  </section>
 
-    <footer>
-      <p>
-        <a href="/">Zurück zur Datenschutzerklärung</a>
-      </p>
-    </footer>
-  </main>
+  <section class="cl-feed">
+    <div class="tzw-wrap">
+
+      <!-- 2026-05-23 — Photo flow + Update banner -->
+      <article class="cl-entry">
+        <div class="cl-side">
+          <div class="cl-version">Foto &amp; Update-Hinweis</div>
+          <div class="cl-date">23. Mai 2026</div>
+          <span class="cl-tag major">Major</span>
+        </div>
+        <div class="cl-body">
+          <h3>Ein Foto-Knopf für alles + Update-Banner</h3>
+
+          <div class="cl-section added">
+            <h4><span class="cl-dot"></span>Neu</h4>
+            <ul class="cl-list">
+              <li><strong>Ein Foto-Knopf für alles.</strong> Statt vorher auszuwählen, ob du eine Mahlzeit oder eine Verpackung fotografierst, erkennt Tenzo jetzt selbst, was im Bild ist — Teller, Etikett, Zutaten oder etwas anderes.</li>
+              <li><strong>Etiketten merken sich mehr.</strong> Beim Scannen eines Etiketts liest Tenzo jetzt nicht nur Kalorien und Makros, sondern auch Mikronährstoffe (z. B. Vitamin B12, Kalium, Magnesium), die Zutatenliste, Allergene und den Nutri-Score. Du kannst auch Tage später nachfragen, was in einem gescannten Produkt war.</li>
+              <li><strong>Update-Banner im Chat.</strong> Sobald eine neue Version im Hintergrund geladen wurde, zeigt Tenzo dir oben eine kleine Leiste mit einem „Jetzt neu starten"-Knopf. Du musst die App nicht mehr mehrmals schließen, damit das Update aktiv wird.</li>
+              <li><strong>Reaktion auf alle Foto-Arten.</strong> Wenn du ein Foto schickst, das kein Lebensmittel zeigt (z. B. ein Selfie oder ein Screenshot), bekommst du jetzt eine freundliche Rückmeldung im Chat statt einer kommentarlosen Fehlermeldung.</li>
+            </ul>
+          </div>
+
+          <div class="cl-section improved">
+            <h4><span class="cl-dot"></span>Verbessert</h4>
+            <ul class="cl-list">
+              <li><strong>Bessere Portions-Schätzung.</strong> Bei typischen Portionen wie Burgerbrötchen, Pizzateig oder Pasta korrigiert Tenzo unplausible Schätzungen automatisch und kennzeichnet sie mit niedriger Konfidenz, damit du sie schnell anpassen kannst.</li>
+              <li><strong>Schutz vor doppelten Foto-Mahlzeiten.</strong> Wenn du innerhalb von 20 Minuten zweimal die gleiche Mahlzeit fotografierst, fragt Tenzo zuerst nach, ob es sich um dasselbe Essen, eine Ergänzung oder eine neue Mahlzeit handelt.</li>
+              <li><strong>Verbrauch und Tagesziel sauber getrennt.</strong> Wenn du fragst, wie viel du heute verbraucht hast, vergleicht Tenzo das nicht mehr fälschlicherweise mit deinem Kalorienziel.</li>
+            </ul>
+          </div>
+
+          <div class="cl-section fixed">
+            <h4><span class="cl-dot"></span>Fixes</h4>
+            <ul class="cl-list">
+              <li><strong>Tracking-Anfragen gehen nicht mehr verloren.</strong> Wenn du Tenzo bittest, ein selten getracktes Gericht zu erfassen, schätzt er die Werte aus der Kategorie und trackt es — statt stillschweigend nichts zu tun.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2026-05-19 — Settings-Picker + Tracking accuracy batch -->
+      <article class="cl-entry">
+        <div class="cl-side">
+          <div class="cl-version">Tracking &amp; Settings</div>
+          <div class="cl-date">19. Mai 2026</div>
+        </div>
+        <div class="cl-body">
+          <h3>Settings-Picker + präziseres Tracking</h3>
+
+          <div class="cl-section added">
+            <h4><span class="cl-dot"></span>Neu</h4>
+            <ul class="cl-list">
+              <li><strong>Interaktive Einstellungs-Widgets.</strong> Wenn du Coaching-Stil, Ziel oder Makros ändern willst, öffnet Tenzo jetzt einen passenden Picker (Slider, Stepper, Auswahl) — kein freies Raten mehr, was du ändern möchtest.</li>
+              <li><strong>„Mit Tenzo anpassen"-Button</strong> in den Einstellungen führt deterministisch durch den Anpassungs-Flow.</li>
+            </ul>
+          </div>
+
+          <div class="cl-section improved">
+            <h4><span class="cl-dot"></span>Verbessert</h4>
+            <ul class="cl-list">
+              <li><strong>Strikte Mengen-Pflicht.</strong> Tenzo trackt nichts mehr ohne klare Mengenangabe — keine erfundenen Defaults wie „1 g".</li>
+              <li><strong>Mahlzeit-Typ bleibt stabil.</strong> Wenn du „zum Mittag" sagst, gilt das für alle folgenden Tracking-Schritte derselben Sequenz — nicht plötzlich „Snack" weil's gerade 14 Uhr ist.</li>
+              <li><strong>Schale &amp; Kern-Abzug.</strong> Wenn du „150 g Banane mit Schale" sagst, rechnet Tenzo auf das essbare Gewicht runter (≈ 98 g) und bestätigt das transparent.</li>
+              <li><strong>Atwater-Pflichtrechnung.</strong> Kalorien-Summen werden jetzt ausgewiesen mit dem Rechenweg (P×4 + K×4 + F×9), nicht mehr aus dem Bauch.</li>
+            </ul>
+          </div>
+
+          <div class="cl-section fixed">
+            <h4><span class="cl-dot"></span>Fixes</h4>
+            <ul class="cl-list">
+              <li><strong>Keine Phantom-Einträge mehr.</strong> Unsichere Sucheinträge werden nicht mehr automatisch getrackt — Tenzo fragt vorher.</li>
+              <li><strong>Saubere Lösch-Bestätigung.</strong> Tenzo behauptet nicht mehr, einen Eintrag gelöscht zu haben, wenn die Datenbank nichts zu löschen hatte.</li>
+              <li><strong>Tageslimit-Endlosschleife behoben.</strong> Nach Erreichen des Tageslimits wird die Hinweis-Nachricht nicht mehr fälschlich weiter „nachgehallt".</li>
+              <li><strong>Barcode-Produkte sauber benannt.</strong> Preise und Gewichtsangaben aus dem OFF-Produkttitel werden entfernt, bevor sie gespeichert werden.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
+      <!-- Subscribe nudge -->
+      <div class="cl-subscribe">
+        <div>
+          <h4>Bei neuen Versionen benachrichtigt werden</h4>
+          <p>Schreib uns kurz — wir melden uns per Email, wenn es Größeres gibt. Kein Newsletter, kein Spam.</p>
+        </div>
+        <a href="mailto:kontakt@mytenzo.app?subject=Changelog-Updates">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 6l-10 7L2 6"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+          Email senden
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <footer class="tzw-footer">
+    <div class="tzw-wrap">
+      <div class="tzw-footer-grid">
+        <div>
+          <div class="tzw-brand" style="margin-bottom: 14px;">TENZO</div>
+          <p style="max-width: 36ch; color: var(--tz-fg-mute); margin: 0;">Voice-first KI-Ernährungscoach. Made in Germany.</p>
+        </div>
+        <div>
+          <h4>App</h4>
+          <ul>
+            <li><a href="../#features">Features</a></li>
+            <li><a href="../#faq">FAQ</a></li>
+            <li><a href="./">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Firma</h4>
+          <ul>
+            <li><a href="../impressum/">Impressum</a></li>
+            <li><a href="../datenschutz/">Datenschutz</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="mailto:kontakt@mytenzo.app">kontakt@mytenzo.app</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="tzw-footer-meta">
+        <span>© 2026 Michael Schild</span>
+      </div>
+    </div>
+  </footer>
 </body>
 </html>

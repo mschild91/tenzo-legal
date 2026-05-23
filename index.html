@@ -1,701 +1,535 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="de">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Datenschutzerklärung – Tenzo</title>
-  <meta name="description" content="Datenschutzerklärung für die Tenzo App – sprachgeführter KI-Ernährungscoach." />
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Tenzo — Sprich. Iss. Tracke.</title>
+  <meta name="description" content="Tenzo ist die schnellste Art, Kalorien zu tracken. Sprich einfach, was du isst — Tenzo erkennt Lebensmittel, Mengen und Makros automatisch. Voice-first KI-Ernährungscoach, aktuell in geschlossener Beta."/>
+  <meta name="theme-color" content="#0A0A0A"/>
+
+  <meta property="og:title" content="Tenzo — Sprich. Iss. Tracke."/>
+  <meta property="og:description" content="Voice-first KI-Ernährungscoach. Aktuell in geschlossener Beta."/>
+  <meta property="og:type" content="website"/>
+
+  <link rel="stylesheet" href="styles.css"/>
+  <link rel="stylesheet" href="voice-demo.css"/>
   <style>
-    :root {
-      --bg: #ffffff;
-      --bg-alt: #f7f6f3;
-      --text: #1a1a1a;
-      --text-muted: #555;
-      --border: #e5e3dd;
-      --accent: #8b9a6b;
-      --link: #5a6f3f;
-      --code-bg: #f0eee8;
-      --max-width: 760px;
+    /* Variant A — "Ruhig" — Apple Fitness inspired.
+       Generous whitespace, big quiet type, alternating media rows. */
+
+    .va-hero {
+      padding-top: clamp(72px, 12vw, 144px);
+      padding-bottom: clamp(56px, 8vw, 112px);
+      position: relative;
+      overflow: hidden;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #121110;
-        --bg-alt: #1c1b18;
-        --text: #f0ebe3;
-        --text-muted: #b3aea4;
-        --border: #2c2a26;
-        --accent: #8b9a6b;
-        --link: #b3c192;
-        --code-bg: #1f1e1a;
-      }
+    .va-hero::after {
+      /* Soft ambient orange glow behind the demo */
+      content: ""; position: absolute;
+      right: -10%; top: -10%; width: 60%; height: 80%;
+      background: radial-gradient(closest-side, rgba(240,138,31,0.18), transparent 70%);
+      pointer-events: none; z-index: 0;
     }
-    * { box-sizing: border-box; }
-    html { -webkit-text-size-adjust: 100%; }
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-      font-size: 17px;
-      line-height: 1.65;
-      color: var(--text);
-      background: var(--bg);
-      -webkit-font-smoothing: antialiased;
+    .va-hero-grid {
+      position: relative; z-index: 1;
+      display: grid; grid-template-columns: 1.05fr 1fr; gap: 64px;
+      align-items: center;
     }
-    main {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 48px 20px 80px;
+    @media (max-width: 900px) {
+      .va-hero-grid { grid-template-columns: 1fr; gap: 48px; }
     }
-    h1 {
-      font-size: 2rem;
-      line-height: 1.2;
-      margin: 0 0 8px;
-      letter-spacing: -0.02em;
+    .va-hero h1 {
+      margin: 22px 0 22px;
     }
-    h2 {
-      font-size: 1.4rem;
-      line-height: 1.3;
-      margin: 56px 0 16px;
-      letter-spacing: -0.01em;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border);
+    .va-hero h1 .va-fade {
+      color: var(--tz-fg-mute); font-style: normal;
     }
-    h3 {
-      font-size: 1.1rem;
-      margin: 32px 0 12px;
-      letter-spacing: -0.005em;
+    .va-hero h1 .va-accent { color: var(--tz-accent); }
+
+    .va-cta-row {
+      display: flex; flex-wrap: wrap; gap: 12px; align-items: center;
+      margin-top: 32px;
     }
-    p, ul, ol { margin: 0 0 16px; }
-    ul, ol { padding-left: 22px; }
-    li { margin-bottom: 6px; }
-    a {
-      color: var(--link);
-      text-decoration: underline;
-      text-underline-offset: 2px;
+    .va-mini {
+      margin-top: 18px; font-size: 13px; color: var(--tz-fg-faint);
+      display: flex; align-items: center; gap: 8px;
     }
-    a:hover { text-decoration-thickness: 2px; }
-    .meta {
-      color: var(--text-muted);
-      font-size: 0.95rem;
-      margin-bottom: 32px;
+    .va-mini::before {
+      content: ""; width: 6px; height: 6px; border-radius: 999px;
+      background: var(--tz-good); box-shadow: 0 0 0 4px rgba(111,191,115,0.18);
     }
-    .toc {
-      background: var(--bg-alt);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 24px;
-      margin: 24px 0 40px;
+
+    /* Trust strip — quiet press-style row */
+    .va-trust {
+      border-top: 1px solid var(--tz-line); border-bottom: 1px solid var(--tz-line);
+      padding: 20px 0;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 24px; flex-wrap: wrap;
+      color: var(--tz-fg-faint); font-size: 12px;
+      letter-spacing: 0.14em; text-transform: uppercase;
     }
-    .toc h2 {
-      margin: 0 0 12px;
-      font-size: 1.05rem;
-      border: none;
-      padding: 0;
+    .va-trust span { display: inline-flex; align-items: center; gap: 8px; }
+    .va-trust b { color: var(--tz-fg-mute); font-weight: 500; }
+
+    /* Feature rows — alternating */
+    .va-feature {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 80px;
+      align-items: center;
+      padding: clamp(72px, 8vw, 120px) 0;
+      border-top: 1px solid var(--tz-line);
     }
-    .toc ol {
-      margin: 0;
-      padding-left: 22px;
-      font-size: 0.95rem;
+    .va-feature:nth-child(even) > .va-feature-text { order: 2; }
+    @media (max-width: 900px) {
+      .va-feature { grid-template-columns: 1fr; gap: 40px; padding: 56px 0; }
+      .va-feature:nth-child(even) > .va-feature-text { order: 0; }
     }
-    .toc li { margin-bottom: 4px; }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 16px 0 24px;
-      font-size: 0.92rem;
+    .va-feature-text h2 { margin-top: 16px; }
+    .va-feature-text p { color: var(--tz-fg-mute); font-size: 17px; margin: 22px 0 0; max-width: 48ch; }
+
+    /* Visual placeholders — phone-shaped mock cards mirroring the app */
+    .va-visual {
+      aspect-ratio: 4/5;
+      border-radius: 28px;
+      background: linear-gradient(180deg, #161616 0%, #0E0E0E 100%);
+      border: 1px solid var(--tz-line);
+      padding: 36px;
+      position: relative; overflow: hidden;
+      display: flex; flex-direction: column; gap: 16px;
+      box-shadow: 0 40px 80px -20px rgba(0,0,0,0.5);
     }
-    th, td {
-      text-align: left;
-      padding: 10px 12px;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
+    .va-visual::before {
+      content: ""; position: absolute; inset: 0;
+      background: radial-gradient(circle at 80% -10%, rgba(240,138,31,0.10), transparent 50%);
     }
-    th {
-      background: var(--bg-alt);
-      font-weight: 600;
+
+    /* Visual #1 — Coach-card */
+    .va-coach { display: flex; gap: 14px; align-items: flex-start;
+      background: var(--tz-card); border-radius: var(--tz-radius-card); padding: 18px;
+      position: relative; z-index: 1;
     }
-    code {
-      background: var(--code-bg);
-      padding: 1px 6px;
-      border-radius: 4px;
-      font-size: 0.88em;
-      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    .va-coach-ico {
+      width: 38px; height: 38px; border-radius: 999px; flex: none;
+      background: linear-gradient(135deg, var(--tz-accent), #B85F0C);
+      display: grid; place-items: center;
+      box-shadow: 0 0 0 4px rgba(240,138,31,0.12);
     }
-    .placeholder {
-      background: #fff3cd;
-      color: #604c00;
-      padding: 1px 6px;
-      border-radius: 4px;
-      font-weight: 500;
+    .va-coach-ico svg { width: 20px; height: 20px; color: #1A1004; }
+    .va-coach-body { flex: 1; min-width: 0; }
+    .va-coach-name { font-size: 12px; color: var(--tz-fg-mute); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+    .va-coach-msg { font-size: 15px; line-height: 1.45; color: var(--tz-fg); }
+
+    /* Visual #2 — Donut */
+    .va-donut {
+      position: relative; z-index: 1;
+      display: flex; gap: 18px; align-items: center;
+      background: var(--tz-card); border-radius: var(--tz-radius-card); padding: 20px;
     }
-    @media (prefers-color-scheme: dark) {
-      .placeholder { background: #3a2f00; color: #ffe175; }
+    .va-donut-ring { width: 96px; height: 96px; flex: none; }
+    .va-donut-body { flex: 1; }
+    .va-donut-eye { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--tz-fg-mute); }
+    .va-donut-big { font-size: 32px; font-weight: 500; font-variant-numeric: tabular-nums; }
+    .va-donut-sub { color: var(--tz-fg-faint); font-size: 12px; }
+    .va-pill-row { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 8px; }
+    .va-pill-row span {
+      font-size: 11px; padding: 3px 8px; border-radius: 999px;
+      background: rgba(0,0,0,0.30); font-variant-numeric: tabular-nums;
     }
-    .callout {
-      background: var(--bg-alt);
-      border-left: 3px solid var(--accent);
-      padding: 14px 18px;
-      margin: 20px 0;
-      border-radius: 0 8px 8px 0;
-      font-size: 0.95rem;
+
+    /* Visual #3 — Day-strip (re-used for past-meal recall feature) */
+    .va-day-strip {
+      position: relative; z-index: 1;
+      background: var(--tz-card); border-radius: var(--tz-radius-card);
+      padding: 16px; display: grid; grid-template-columns: 36px 1fr 36px; align-items: center;
     }
-    footer {
-      margin-top: 64px;
-      padding-top: 24px;
-      border-top: 1px solid var(--border);
-      color: var(--text-muted);
-      font-size: 0.9rem;
+    .va-chev { color: var(--tz-fg-mute); font-size: 24px; text-align: center; line-height: 1; }
+    .va-day-label { text-align: center; }
+    .va-day-name { font-size: 15px; font-weight: 500; color: var(--tz-fg); }
+    .va-day-date { font-size: 11px; color: var(--tz-fg-faint); margin-top: 2px; }
+
+    /* CTA strip at bottom */
+    .va-cta-strip {
+      padding: clamp(56px, 8vw, 112px) 0;
+      text-align: center;
+      border-top: 1px solid var(--tz-line);
     }
+    .va-cta-strip h2 { max-width: 18ch; margin: 0 auto; }
+    .va-cta-strip p { color: var(--tz-fg-mute); font-size: 18px; margin: 18px auto 32px; max-width: 52ch; }
+
+    /* FAQ */
+    .va-faq { max-width: 760px; margin: 0 auto; }
+    .va-faq h2 { text-align: center; margin-bottom: 48px; }
+    .va-faq details {
+      border-top: 1px solid var(--tz-line);
+      padding: 22px 4px;
+    }
+    .va-faq details:last-of-type { border-bottom: 1px solid var(--tz-line); }
+    .va-faq summary {
+      cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+      font-size: 18px; color: var(--tz-fg); list-style: none;
+      font-weight: 500; letter-spacing: -0.01em;
+    }
+    .va-faq summary::-webkit-details-marker { display: none; }
+    .va-faq summary::after {
+      content: "+"; font-size: 22px; color: var(--tz-fg-mute);
+      transition: transform 0.2s;
+    }
+    .va-faq details[open] summary::after { transform: rotate(45deg); }
+    .va-faq details p {
+      color: var(--tz-fg-mute); font-size: 16px; line-height: 1.6;
+      margin: 14px 0 0; max-width: 58ch;
+    }
+    .va-faq details a { color: var(--tz-accent); }
   </style>
 </head>
 <body>
-  <main>
-    <h1>Datenschutzerklärung</h1>
-    <p class="meta">Tenzo App · Stand: 25. April 2026 · Version 1.0</p>
-
-    <p>
-      Diese Datenschutzerklärung informiert dich darüber, wie wir – der Anbieter der mobilen Anwendung
-      <strong>Tenzo</strong> (im Folgenden „App", „Tenzo" oder „Dienst") – deine personenbezogenen Daten
-      verarbeiten. Tenzo ist ein sprachgeführter KI-Ernährungscoach. Die Verarbeitung erfolgt im Einklang
-      mit der Datenschutz-Grundverordnung (DSGVO), dem Bundesdatenschutzgesetz (BDSG) sowie ergänzenden
-      nationalen Vorschriften.
-    </p>
-
-    <div class="callout">
-      <strong>Auf einen Blick:</strong> Tenzo verarbeitet Profil- und Gesundheitsdaten, Sprach- und
-      Texteingaben, Mahlzeitenfotos sowie technische Geräteinformationen. Verarbeitet wird ausschließlich
-      zum Betrieb der App und zur Bereitstellung der Coaching-Funktionen. Wir verkaufen keine Daten,
-      schalten keine Werbung und nutzen keine Tracking-Tools von Dritten.
+  <!-- ===== Header ============================================== -->
+  <header class="tzw-header">
+    <div class="tzw-wrap tzw-nav">
+      <a href="./" class="tzw-brand">TENZO</a>
+      <nav class="tzw-nav-links">
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+        <a href="changelog/">Changelog</a>
+      </nav>
+      <a href="#signup" class="tzw-nav-cta">Auf die Beta-Liste</a>
     </div>
+  </header>
 
-    <nav class="toc" aria-label="Inhaltsverzeichnis">
-      <h2>Inhalt</h2>
-      <ol>
-        <li><a href="#verantwortlicher">Verantwortlicher</a></li>
-        <li><a href="#datenkategorien">Verarbeitete Datenkategorien</a></li>
-        <li><a href="#zwecke">Zwecke und Rechtsgrundlagen der Verarbeitung</a></li>
-        <li><a href="#auth">Registrierung und Anmeldung</a></li>
-        <li><a href="#chat">Sprach- und Text-Coaching (KI-Verarbeitung)</a></li>
-        <li><a href="#fotos">Mahlzeitenfotos und Barcode-Scanner</a></li>
-        <li><a href="#health">Apple Health und Health Connect</a></li>
-        <li><a href="#memory">Persönliches Coaching-Profil („Memory")</a></li>
-        <li><a href="#push">Push-Benachrichtigungen</a></li>
-        <li><a href="#empfaenger">Empfänger und Auftragsverarbeiter</a></li>
-        <li><a href="#drittland">Übermittlung in Drittländer</a></li>
-        <li><a href="#speicherdauer">Speicherdauer</a></li>
-        <li><a href="#rechte">Deine Rechte</a></li>
-        <li><a href="#sicherheit">Datensicherheit</a></li>
-        <li><a href="#kinder">Kinder und Jugendliche</a></li>
-        <li><a href="#automatisierung">Automatisierte Entscheidungsfindung</a></li>
-        <li><a href="#aenderungen">Änderungen dieser Erklärung</a></li>
-        <li><a href="#kontakt">Kontakt</a></li>
-      </ol>
-    </nav>
+  <!-- ===== Hero ================================================ -->
+  <section class="va-hero">
+    <div class="tzw-wrap va-hero-grid">
+      <div>
+        <span class="tzw-eyebrow">Voice-first Ernährungscoach</span>
+        <h1 class="tzw-h1">
+          Sprich. Iss.<br/>
+          <span class="va-accent">Tracke.</span>
+        </h1>
+        <p class="tzw-lede">
+          Tenzo ist der schnellste Weg, deine Mahlzeiten festzuhalten. Sag einfach, was du gegessen
+          hast — Tenzo erkennt Lebensmittel, Mengen und Makros automatisch. Wie ein Coach, der
+          zuhört, statt dich Tabellen ausfüllen zu lassen.
+        </p>
+        <div class="va-cta-row">
+          <a href="#signup" class="tzw-btn tzw-btn-primary">Auf die Beta-Liste</a>
+          <a href="#features" class="tzw-btn tzw-btn-ghost">Wie es funktioniert</a>
+        </div>
+        <div class="va-mini">Geschlossene Beta · Einladung per Email · auf Deutsch</div>
+      </div>
+      <div>
+        <div data-tenzo-voice-demo></div>
+      </div>
+    </div>
+  </section>
 
-    <h2 id="verantwortlicher">1. Verantwortlicher</h2>
-    <p>
-      Verantwortlich für die Datenverarbeitung im Sinne von Art. 4 Nr. 7 DSGVO ist:
-    </p>
-    <p>
-      Michael Schild<br />
-      Damaschkestraße 8<br />
-      41238 Mönchengladbach<br />
-      Deutschland<br />
-      E-Mail: <a href="mailto:kontakt@mytenzo.app">kontakt@mytenzo.app</a>
-    </p>
-    <p>
-      Eine gesetzliche Pflicht zur Bestellung eines Datenschutzbeauftragten besteht für uns derzeit nicht.
-      Anfragen zum Datenschutz richte bitte an die oben genannte E-Mail-Adresse.
-    </p>
+  <!-- ===== Trust strip ========================================= -->
+  <section class="tzw-wrap">
+    <div class="va-trust">
+      <span><b>Voice</b> · Text · Foto · Barcode</span>
+      <span><b>EU-Hosting</b> in Frankfurt</span>
+      <span><b>Kein</b> Modelltraining auf deinen Daten</span>
+      <span><b>Kein</b> Werbe-Tracking</span>
+    </div>
+  </section>
 
-    <h2 id="datenkategorien">2. Verarbeitete Datenkategorien</h2>
-    <p>Im Rahmen der Nutzung von Tenzo verarbeiten wir folgende Kategorien personenbezogener Daten:</p>
+  <!-- ===== Features ============================================ -->
+  <main id="features" class="tzw-wrap">
 
-    <h3>2.1 Stammdaten und Profil</h3>
-    <ul>
-      <li>E-Mail-Adresse</li>
-      <li>Anzeigename (optional, je nach Anmeldemethode)</li>
-      <li>Alter, Geschlecht, Körpergröße, Körpergewicht</li>
-      <li>Aktivitätslevel, Trainingsfrequenz und -typ</li>
-      <li>Ernährungsstil (z.&nbsp;B. vegetarisch, vegan, mediterran)</li>
-      <li>Allergien, Unverträglichkeiten, Lebensmittel-Abneigungen</li>
-      <li>Gewünschter Coaching-Stil, Schlafenszeiten, Coaching-Ziel</li>
-      <li>Anmeldedatum, Onboarding-Status</li>
-    </ul>
+    <!-- Feature 1 — Voice -->
+    <section class="va-feature">
+      <div class="va-feature-text">
+        <span class="tzw-eyebrow">Voice tracking</span>
+        <h2 class="tzw-h2">Sag's einfach. <br/>Tenzo versteht.</h2>
+        <p>
+          Keine Datenbank, keine Mengen-Slider, keine Pflichtfelder. Sag „200 Gramm Hähnchen mit
+          Reis und Brokkoli" und Tenzo trägt drei separate Einträge mit korrekten Makros ein —
+          inklusive sinnvoller Defaults, wenn du keine Mengen nennst.
+        </p>
+      </div>
+      <div class="va-visual">
+        <div class="va-coach">
+          <div class="va-coach-ico">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="3" width="6" height="12" rx="3"/>
+              <path d="M5 11a7 7 0 0 0 14 0"/>
+              <path d="M12 18v3"/>
+            </svg>
+          </div>
+          <div class="va-coach-body">
+            <div class="va-coach-name">Tenzo · 12:31</div>
+            <div class="va-coach-msg">„Mittagessen: 200 g Hähnchenbrust, 250 g Reis und etwas Brokkoli"</div>
+          </div>
+        </div>
+        <div class="va-coach">
+          <div class="va-coach-ico" style="background: linear-gradient(135deg, #C9A07A, #8C6B49);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+          </div>
+          <div class="va-coach-body">
+            <div class="va-coach-name">Erkannt · 3 Einträge</div>
+            <div class="va-coach-msg">706 kcal · 52 g Protein · 77 g Kohlenh. · 8 g Fett</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <h3>2.2 Gesundheits- und Trainingsdaten (Art. 9 DSGVO)</h3>
-    <ul>
-      <li>Schritte, Schlafdaten, aktive Energie</li>
-      <li>Gewicht und Gewichtsverlauf</li>
-      <li>Körperfettanteil (sofern verfügbar)</li>
-      <li>Trainingseinheiten/Workouts</li>
-      <li>Selbst protokollierte Mahlzeiten mit Nährwerten (Kalorien, Protein, Kohlenhydrate, Fette, Ballaststoffe, Zucker)</li>
-    </ul>
-    <p>
-      Diese Daten gehören zu den besonderen Kategorien personenbezogener Daten („Gesundheitsdaten")
-      gemäß Art. 9 Abs. 1 DSGVO. Wir verarbeiten sie ausschließlich auf Grundlage deiner
-      <strong>ausdrücklichen Einwilligung</strong> (Art. 9 Abs. 2 lit. a DSGVO).
-    </p>
+    <!-- Feature 2 — Coaching -->
+    <section class="va-feature">
+      <div class="va-feature-text">
+        <span class="tzw-eyebrow">Coaching, nicht Kontrolle</span>
+        <h2 class="tzw-h2">Ein Coach.<br/>Kein Buchhalter.</h2>
+        <p>
+          Tenzo zählt nicht nur Zahlen zusammen. Du bekommst kurze, konkrete Hinweise auf deinem
+          Niveau — egal, ob du gerade erst anfängst oder seit Jahren trackst. Wöchentliche
+          Coaching-Check-ins fassen deine Woche zusammen, und Tenzo merkt sich, was dir wichtig
+          ist. Kein Streak-Druck. Nur das Nötige.
+        </p>
+      </div>
+      <div class="va-visual">
+        <div class="va-donut">
+          <svg class="va-donut-ring" viewBox="0 0 96 96">
+            <circle cx="48" cy="48" r="40" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="8"/>
+            <circle cx="48" cy="48" r="40" fill="none" stroke="var(--tz-accent)" stroke-width="8"
+                    stroke-dasharray="180 251" stroke-linecap="round" transform="rotate(-90 48 48)"/>
+          </svg>
+          <div class="va-donut-body">
+            <div class="va-donut-eye">kcal übrig</div>
+            <div class="va-donut-big">1.412</div>
+            <div class="va-donut-sub">von 2.604 · 54%</div>
+            <div class="va-pill-row">
+              <span style="color: var(--tz-protein)">P 49/236</span>
+              <span style="color: var(--tz-carbs)">K 38/222</span>
+              <span style="color: var(--tz-fat)">F 8/86</span>
+            </div>
+          </div>
+        </div>
+        <div class="va-coach">
+          <div class="va-coach-ico" style="background: linear-gradient(135deg, #6FBF73, #3F8F45);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v4"/><path d="M12 18v4"/><path d="m4.93 4.93 2.83 2.83"/><path d="m16.24 16.24 2.83 2.83"/><circle cx="12" cy="12" r="4"/></svg>
+          </div>
+          <div class="va-coach-body">
+            <div class="va-coach-name">Coach · vor 8 min</div>
+            <div class="va-coach-msg">„Du bist noch 64 g Protein unter Ziel. Ein Skyr abends würde es ausgleichen."</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <h3>2.3 Kommunikations- und Coaching-Inhalte</h3>
-    <ul>
-      <li>Vollständige Chat-Verläufe (Texteingaben und KI-Antworten)</li>
-      <li>Sprachaufnahmen (zur Transkription, nicht persistent gespeichert)</li>
-      <li>Mahlzeitenfotos (zur Analyse, nicht persistent gespeichert)</li>
-      <li>Aus den Inhalten abgeleitete Profilinformationen („Coaching-Profil"/„Memory") – siehe Abschnitt 8</li>
-    </ul>
+    <!-- Feature 3 — Foto & Etiketten -->
+    <section class="va-feature">
+      <div class="va-feature-text">
+        <span class="tzw-eyebrow">Foto &amp; Etiketten</span>
+        <h2 class="tzw-h2">Ein Knopf.<br/>Alles erkannt.</h2>
+        <p>
+          Foto vom Teller → Tenzo schätzt Mengen und Makros. Foto vom Etikett → Nährwerte,
+          Zutatenliste, Allergene und Mikronährstoffe landen direkt in deiner persönlichen
+          Lebensmittel-Datenbank. Barcode scannen geht natürlich auch. Egal welches Foto:
+          Tenzo erkennt automatisch, was er vor sich hat.
+        </p>
+      </div>
+      <div class="va-visual">
+        <div class="va-coach">
+          <div class="va-coach-ico" style="background: linear-gradient(135deg, #E0A24A, #8C5F1C);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+          </div>
+          <div class="va-coach-body">
+            <div class="va-coach-name">Foto erkannt · Mittagessen</div>
+            <div class="va-coach-msg">Hähnchen, Reis, Brokkoli — Mengen geschätzt, du kannst nachjustieren.</div>
+          </div>
+        </div>
+        <div class="va-coach">
+          <div class="va-coach-ico" style="background: linear-gradient(135deg, #C9A07A, #8C6B49);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10"/><path d="M7 12h10"/><path d="M7 16h6"/></svg>
+          </div>
+          <div class="va-coach-body">
+            <div class="va-coach-name">Etikett gespeichert</div>
+            <div class="va-coach-msg">Holy Hydration · 250 kcal · B12 2,5 µg · Kalium 600 mg · Zutaten gespeichert.</div>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    <h3>2.4 Technische Daten</h3>
-    <ul>
-      <li>Anonymisierte Geräteinformationen (Plattform iOS/Android, Push-Token, App-Version)</li>
-      <li>Authentifizierungs- und Sitzungsinformationen</li>
-      <li>Zähler zur internen Nutzungs- und Kostenkontrolle (Anzahl Anfragen, geschätzte Token-Kosten je Modell)</li>
-    </ul>
+    <!-- Feature 4 — Past-meal recall (uses the day-strip visual) -->
+    <section class="va-feature">
+      <div class="va-feature-text">
+        <span class="tzw-eyebrow">Vergangenheit auf Abruf</span>
+        <h2 class="tzw-h2">„Wie gestern."<br/>Reicht.</h2>
+        <p>
+          Tenzo erinnert sich an deine vergangenen Tage. Sag „tracke mein Frühstück wie gestern"
+          und alle Komponenten landen wieder im Tagesplan — mit den richtigen Mengen. Frag nach
+          einem Wochenüberblick und Tenzo fasst dir kurz zusammen, wo du standest und worauf es
+          ankommt.
+        </p>
+      </div>
+      <div class="va-visual">
+        <div class="va-day-strip">
+          <div class="va-chev">‹</div>
+          <div class="va-day-label">
+            <div class="va-day-name">Heute</div>
+            <div class="va-day-date">Sa., 23. Mai</div>
+          </div>
+          <div class="va-chev">›</div>
+        </div>
+        <div class="va-day-strip" style="opacity: 0.65;">
+          <div class="va-chev">‹</div>
+          <div class="va-day-label">
+            <div class="va-day-name">Gestern</div>
+            <div class="va-day-date">Fr., 22. Mai · 2.184 kcal</div>
+          </div>
+          <div class="va-chev">›</div>
+        </div>
+        <div class="va-day-strip" style="opacity: 0.35;">
+          <div class="va-chev">‹</div>
+          <div class="va-day-label">
+            <div class="va-day-name">Vorgestern</div>
+            <div class="va-day-date">Do., 21. Mai · 1.957 kcal</div>
+          </div>
+          <div class="va-chev">›</div>
+        </div>
+      </div>
+    </section>
 
-    <h3>2.5 Daten, die wir <em>nicht</em> verarbeiten</h3>
-    <p>
-      Tenzo erhebt keine Standortdaten, keine Kontakte, keine Werbe-IDs (IDFA/AAID) und nutzt keine
-      App-übergreifenden Tracking-Mechanismen. Es kommen keine Drittanbieter-Analyse-Tools
-      (Google Analytics, Firebase Analytics, Mixpanel, Amplitude, PostHog o.&nbsp;ä.) zum Einsatz.
-    </p>
-
-    <h2 id="zwecke">3. Zwecke und Rechtsgrundlagen der Verarbeitung</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Zweck</th>
-          <th>Rechtsgrundlage</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Bereitstellung von Konto und App-Funktionen, Anmeldung, Authentifizierung</td>
-          <td>Art. 6 Abs. 1 lit. b DSGVO (Vertrag)</td>
-        </tr>
-        <tr>
-          <td>Personalisiertes Ernährungs- und Coaching-Erlebnis (KI-Chat, Empfehlungen, Erinnerungen)</td>
-          <td>Art. 6 Abs. 1 lit. b DSGVO (Vertrag) sowie Art. 9 Abs. 2 lit. a DSGVO (Einwilligung) für Gesundheitsdaten</td>
-        </tr>
-        <tr>
-          <td>Import von Gesundheitsdaten aus Apple Health / Health Connect</td>
-          <td>Art. 6 Abs. 1 lit. a, Art. 9 Abs. 2 lit. a DSGVO (ausdrückliche Einwilligung)</td>
-        </tr>
-        <tr>
-          <td>Versand von Push-Benachrichtigungen (z.&nbsp;B. Erinnerungen, Coaching-Impulse)</td>
-          <td>Art. 6 Abs. 1 lit. a DSGVO (Einwilligung, jederzeit widerrufbar)</td>
-        </tr>
-        <tr>
-          <td>Aufbau und Pflege eines Coaching-Profils („Memory") aus Konversationsinhalten</td>
-          <td>Art. 6 Abs. 1 lit. b DSGVO (Vertrag); für sensible Inhalte zusätzlich Einwilligung</td>
-        </tr>
-        <tr>
-          <td>Sicherstellung des Betriebs, Missbrauchsprävention, Rate Limiting, Kostenmonitoring</td>
-          <td>Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse)</td>
-        </tr>
-        <tr>
-          <td>Erfüllung gesetzlicher Aufbewahrungs- und Auskunftspflichten</td>
-          <td>Art. 6 Abs. 1 lit. c DSGVO (rechtliche Verpflichtung)</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2 id="auth">4. Registrierung und Anmeldung</h2>
-    <p>
-      Die Anmeldung bei Tenzo ist über die folgenden Verfahren möglich:
-    </p>
-    <ul>
-      <li>
-        <strong>E-Mail und Passwort</strong> – wir speichern deine E-Mail-Adresse und einen kryptografisch
-        gehashten Passwort-Wert. Klartextpasswörter werden weder übertragen noch gespeichert.
-      </li>
-      <li>
-        <strong>Sign in with Apple</strong> – Apple übermittelt uns einen pseudonymen Identifier sowie
-        – nur bei der Erstanmeldung und nur, wenn du das ausdrücklich zulässt – deinen Namen und deine
-        E-Mail-Adresse. Apple bietet die Möglichkeit, eine private Relay-E-Mail-Adresse zu verwenden.
-      </li>
-      <li>
-        <strong>Anmeldung mit Google</strong> – Google übermittelt uns deine E-Mail-Adresse, deinen Namen
-        und einen pseudonymen Google-Identifier.
-      </li>
-    </ul>
-    <p>
-      Authentifizierungs-Tokens (Access- und Refresh-Tokens) werden auf deinem Gerät verschlüsselt im
-      sicheren Schlüsselbund deines Betriebssystems gespeichert (iOS Keychain bzw. Android Keystore über
-      <code>expo-secure-store</code>). Eine Übertragung an unsere Server erfolgt ausschließlich über
-      verschlüsselte Verbindungen (TLS).
-    </p>
-
-    <h2 id="chat">5. Sprach- und Text-Coaching (KI-Verarbeitung)</h2>
-    <p>
-      Im Mittelpunkt von Tenzo steht ein KI-gestütztes Coaching-Gespräch. Du kannst per Sprache oder Text
-      mit Tenzo kommunizieren. Hierbei werden folgende Verarbeitungen durchgeführt:
-    </p>
-
-    <h3>5.1 Sprachaufnahmen und Transkription</h3>
-    <p>
-      Wenn du in den Sprachmodus wechselst, nimmt deine App auf deinem Gerät eine Audioaufnahme deiner
-      Eingabe auf. Diese wird verschlüsselt an unseren Server (Supabase Edge Function) übermittelt und
-      von dort an den Sprache-zu-Text-Dienst <strong>OpenAI Whisper</strong> weitergeleitet. Wir
-      empfangen den transkribierten Text zurück. Die ursprüngliche Audiodatei wird weder bei uns noch
-      auf deinem Gerät dauerhaft gespeichert.
-    </p>
-
-    <h3>5.2 Konversation mit dem Sprachmodell</h3>
-    <p>
-      Deine Eingaben (Texte oder Transkripte) werden gemeinsam mit deinem Coaching-Kontext (z.&nbsp;B.
-      Ziele, Tageswerte, gespeicherten Vorlieben) an das Large-Language-Model
-      <strong>Claude</strong> der Firma <strong>Anthropic</strong> übermittelt (Modelle der Reihe
-      <em>Haiku</em> für tägliche Konversationen, <em>Sonnet</em> für komplexere Anliegen). Die Antwort
-      des Modells wird an dich zurückgesendet und in deiner Konversationshistorie gespeichert
-      (Tabelle <code>chat_messages</code>).
-    </p>
-
-    <h3>5.3 Sprachausgabe (Text-to-Speech)</h3>
-    <p>
-      Damit Tenzo dir antworten kann, wird der Antworttext an einen Text-zu-Sprache-Dienst
-      (<strong>OpenAI TTS</strong>) übermittelt. Die zurückgelieferte Audiodatei wird auf deinem Gerät
-      abgespielt und nicht persistent gespeichert.
-    </p>
-
-    <h3>5.4 KI-Anbieter und Datennutzung</h3>
-    <p>
-      Anthropic und OpenAI verarbeiten die übermittelten Daten ausschließlich, um die jeweilige
-      API-Antwort zu erzeugen. Beide Anbieter haben gegenüber API-Kunden zugesichert, dass
-      <strong>API-Inhalte standardmäßig nicht zum Training ihrer Modelle verwendet werden</strong>.
-      Inhalte werden aus Sicherheits- und Missbrauchsgründen typischerweise bis zu 30 Tage gespeichert
-      und danach gelöscht. Die jeweils aktuellen Bedingungen findest du unter:
-    </p>
-    <ul>
-      <li><a href="https://www.anthropic.com/legal/privacy" target="_blank" rel="noopener">Anthropic Privacy Policy</a></li>
-      <li><a href="https://openai.com/policies/row-privacy-policy" target="_blank" rel="noopener">OpenAI Privacy Policy</a></li>
-    </ul>
-    <p>
-      Mit beiden Anbietern bestehen Auftragsverarbeitungsverträge bzw. Datenverarbeitungs-Anhänge (DPA).
-      Übermittlungen in die USA werden durch EU-Standardvertragsklauseln (SCC) abgesichert.
-    </p>
-
-    <h2 id="fotos">6. Mahlzeitenfotos und Barcode-Scanner</h2>
-    <h3>6.1 Mahlzeitenfotos</h3>
-    <p>
-      Du kannst Tenzo Fotos von Mahlzeiten zur Verfügung stellen, indem du sie über die Kamera aufnimmst
-      oder aus deiner Mediathek auswählst. Das Foto wird auf deinem Gerät komprimiert (max. 1024&nbsp;px,
-      JPEG) und über eine verschlüsselte Verbindung an unseren Server übermittelt. Dort wird es zur
-      Erkennung der Lebensmittel und zur Schätzung der Portionsgröße an folgende Dienste weitergeleitet:
-    </p>
-    <ul>
-      <li><strong>Anthropic Claude Vision</strong> – KI-gestützte Bildanalyse zur Mahlzeitenerkennung.</li>
-      <li><strong>Replicate</strong> – Bildsegmentierung (SAM2) und Tiefenanalyse (Depth Anything V2)
-        zur Verbesserung der Portionsschätzung.</li>
-    </ul>
-    <p>
-      Das hochgeladene Foto wird <strong>nicht dauerhaft gespeichert</strong> (weder auf unseren Servern
-      noch in unserer Datenbank). Lediglich das aus der Analyse abgeleitete Ergebnis – also die Liste
-      erkannter Lebensmittel mit geschätzten Mengen und Nährwerten – wird in deinem Mahlzeiten-Logbuch
-      gespeichert.
-    </p>
-
-    <h3>6.2 Barcode-Scanner</h3>
-    <p>
-      Beim Scannen eines Lebensmittel-Barcodes wird der Code über die Kamera deines Geräts ausgelesen.
-      Der Barcode (eine numerische Kennung, kein Bild) wird an die offene Datenbank
-      <strong>Open Food Facts</strong> übermittelt, um die zugehörigen Produktinformationen abzurufen.
-      Die Kameraaufnahme selbst verlässt dein Gerät nicht.
-    </p>
-
-    <h2 id="health">7. Apple Health und Health Connect</h2>
-    <p>
-      Wenn du es ausdrücklich erlaubst, importiert Tenzo Gesundheitsdaten aus
-      <strong>Apple Health</strong> (iOS) bzw. <strong>Health Connect</strong> (Android). Du erteilst
-      die jeweilige Berechtigung über das Systemdialogfenster deines Betriebssystems und kannst sie dort
-      jederzeit wieder entziehen.
-    </p>
-
-    <h3>7.1 Gelesene Datentypen</h3>
-    <ul>
-      <li>Schrittzahl</li>
-      <li>Körpergewicht</li>
-      <li>Aktive Energie / verbrannte Kalorien</li>
-      <li>Schlafanalyse</li>
-      <li>Workouts/Trainingseinheiten</li>
-      <li>Körperfettanteil (sofern verfügbar)</li>
-    </ul>
-
-    <h3>7.2 Geschriebene Datentypen (nur iOS)</h3>
-    <p>
-      Tenzo schreibt – ebenfalls nur mit deiner Zustimmung – die folgenden Werte in Apple Health
-      zurück, damit deine Ernährungsdaten zentral verfügbar sind:
-    </p>
-    <ul>
-      <li>Aufgenommene Kalorien</li>
-      <li>Protein, Kohlenhydrate, Fett</li>
-    </ul>
-
-    <h3>7.3 Verarbeitung</h3>
-    <p>
-      Die importierten Daten werden in deinem Tenzo-Profil (Tabelle <code>health_records</code>,
-      <code>daily_steps</code>, <code>weight_logs</code>) gespeichert und ausschließlich genutzt, um
-      dein Coaching zu personalisieren (Bedarfsberechnung, Trends, Erinnerungen). Sie werden
-      <strong>nicht</strong> an Dritte weitergegeben und <strong>nicht</strong> für Werbezwecke
-      verwendet.
-    </p>
-    <p>
-      Du kannst die Verbindung zu Apple Health/Health Connect jederzeit in den Geräteeinstellungen
-      deaktivieren und die in Tenzo gespeicherten Gesundheitsdaten über die Funktion „Konto löschen"
-      vollständig entfernen.
-    </p>
-
-    <h2 id="memory">8. Persönliches Coaching-Profil („Memory")</h2>
-    <p>
-      Damit Tenzo dich kontinuierlich besser unterstützen kann, leiten wir aus deinen Konversationen
-      automatisch Profilinformationen ab und speichern diese als „Memory":
-    </p>
-    <ul>
-      <li>Allergien und Unverträglichkeiten</li>
-      <li>Lebensmittel-Vorlieben und -Abneigungen</li>
-      <li>Ernährungsstil (z.&nbsp;B. vegetarisch)</li>
-      <li>Ziele und Verhaltensmuster</li>
-      <li>Temporäre Kontexte (z.&nbsp;B. Urlaub, Krankheit) – diese laufen automatisch ab</li>
-    </ul>
-    <p>
-      Die Memory-Funktion lässt sich vollständig deaktivieren oder einzelne Einträge können gelöscht
-      werden. Du kannst Tenzo zudem ausdrücklich anweisen, eine Information zu vergessen
-      (z.&nbsp;B. „Bitte vergiss meine Vorliebe für Kaffee"). Die zugehörigen Bedienelemente findest du
-      in den Einstellungen unter „Erinnerungen".
-    </p>
-
-    <h2 id="push">9. Push-Benachrichtigungen</h2>
-    <p>
-      Mit deiner Einwilligung sendet Tenzo gelegentlich Push-Benachrichtigungen, etwa um dich an die
-      Mahlzeitenprotokollierung zu erinnern oder Coaching-Impulse zu liefern. Hierfür wird der von
-      deinem Betriebssystem ausgegebene Push-Token in unserer Datenbank (Tabelle
-      <code>push_tokens</code>) gespeichert. Die tatsächliche Auslieferung erfolgt über
-      <strong>Expo Push Service</strong>, der wiederum die Plattform-Dienste
-      <strong>Apple Push Notification Service (APNs)</strong> bzw. <strong>Firebase Cloud Messaging
-      (FCM)</strong> nutzt.
-    </p>
-    <p>
-      Du kannst Push-Benachrichtigungen jederzeit in den Geräteeinstellungen oder in den
-      App-Einstellungen deaktivieren.
-    </p>
-
-    <h2 id="empfaenger">10. Empfänger und Auftragsverarbeiter</h2>
-    <p>
-      Wir setzen sorgfältig ausgewählte Dienstleister ein, die uns beim Betrieb von Tenzo unterstützen.
-      Mit allen Dienstleistern, die in unserem Auftrag personenbezogene Daten verarbeiten, bestehen
-      Auftragsverarbeitungsverträge nach Art. 28 DSGVO bzw. entsprechende Datenverarbeitungs-Anhänge.
-    </p>
-    <table>
-      <thead>
-        <tr>
-          <th>Dienstleister</th>
-          <th>Zweck</th>
-          <th>Sitz</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Supabase, Inc.</td>
-          <td>Hosting, Datenbank, Authentifizierung, Edge Functions</td>
-          <td>USA / EU (Serverstandort: eu-central-1 (Frankfurt))</td>
-        </tr>
-        <tr>
-          <td>Anthropic, PBC</td>
-          <td>KI-Sprachmodell (Claude) für Coaching-Konversationen und Bildanalyse</td>
-          <td>USA</td>
-        </tr>
-        <tr>
-          <td>OpenAI, L.L.C.</td>
-          <td>Spracherkennung (Whisper), Sprachausgabe (TTS)</td>
-          <td>USA</td>
-        </tr>
-        <tr>
-          <td>Replicate, Inc.</td>
-          <td>Bildsegmentierung und Tiefenanalyse für Mahlzeitenfotos</td>
-          <td>USA</td>
-        </tr>
-        <tr>
-          <td>650 Industries, Inc. (Expo)</td>
-          <td>Push-Benachrichtigungs-Service</td>
-          <td>USA</td>
-        </tr>
-        <tr>
-          <td>Apple Inc.</td>
-          <td>Sign in with Apple, Apple Push Notification Service, Apple Health</td>
-          <td>USA / Irland</td>
-        </tr>
-        <tr>
-          <td>Google LLC / Google Ireland Ltd.</td>
-          <td>Google Sign-In, Firebase Cloud Messaging, Health Connect</td>
-          <td>USA / Irland</td>
-        </tr>
-        <tr>
-          <td>naehrwerte.io</td>
-          <td>Bereitstellung des Bundeslebensmittelschlüssels (BLS) für deutsche Nährwerte</td>
-          <td>Deutschland</td>
-        </tr>
-        <tr>
-          <td>Open Food Facts (gemeinnützig)</td>
-          <td>Barcode-Datenbank und Produktinformationen</td>
-          <td>Frankreich / EU</td>
-        </tr>
-      </tbody>
-    </table>
-
-    <h2 id="drittland">11. Übermittlung in Drittländer</h2>
-    <p>
-      Einige unserer Auftragsverarbeiter haben ihren Sitz in den USA. Damit verbunden ist eine
-      Übermittlung personenbezogener Daten in ein Drittland im Sinne der DSGVO. Für diese
-      Übermittlungen liegen folgende Garantien vor:
-    </p>
-    <ul>
-      <li>
-        <strong>EU-Standardvertragsklauseln</strong> (Standard Contractual Clauses, SCC) gemäß
-        Durchführungsbeschluss (EU) 2021/914 der Europäischen Kommission.
-      </li>
-      <li>
-        <strong>EU-US Data Privacy Framework</strong>: Soweit Anbieter unter dem
-        EU-US Data Privacy Framework zertifiziert sind, gilt für sie ein Angemessenheitsbeschluss
-        gemäß Art. 45 DSGVO.
-      </li>
-      <li>
-        <strong>Technische und organisatorische Maßnahmen</strong>: Verschlüsselung in Transport (TLS)
-        und – soweit vom Anbieter unterstützt – im Ruhezustand; Datenminimierung; Zugriffsbeschränkung
-        durch starkes Identitäts- und Berechtigungsmanagement.
-      </li>
-    </ul>
-    <p>
-      Eine Kopie der Standardvertragsklauseln kannst du bei uns anfordern.
-    </p>
-
-    <h2 id="speicherdauer">12. Speicherdauer</h2>
-    <p>
-      Wir speichern personenbezogene Daten nur so lange, wie dies für die genannten Zwecke erforderlich
-      ist:
-    </p>
-    <ul>
-      <li>
-        <strong>Konto- und Profildaten, Mahlzeiten- und Gesundheitsdaten, Konversationsverlauf,
-        Memory-Einträge:</strong> bis zur Löschung deines Kontos durch dich.
-      </li>
-      <li>
-        <strong>Sprachaufnahmen und Mahlzeitenfotos:</strong> nur flüchtig zur Analyse, keine dauerhafte
-        Speicherung; bei den KI-Anbietern bis zu 30 Tage zur Missbrauchserkennung.
-      </li>
-      <li>
-        <strong>Authentifizierungs-Tokens:</strong> auf deinem Gerät, bis zum Logout oder zur
-        Deinstallation der App.
-      </li>
-      <li>
-        <strong>Technische Nutzungs- und Kostenprotokolle</strong> (z.&nbsp;B. <code>token_usage_log</code>):
-        in der Regel 90 Tage.
-      </li>
-      <li>
-        <strong>Gesetzliche Aufbewahrungsfristen</strong> (z.&nbsp;B. handels- oder steuerrechtlich):
-        bis zum Ablauf der jeweiligen Frist; bis dahin werden die betroffenen Daten gesperrt und nur
-        zweckgebunden verarbeitet.
-      </li>
-    </ul>
-    <p>
-      Wenn du dein Konto löschst, werden sämtliche personenbezogenen Daten unverzüglich vollständig
-      und unwiderruflich entfernt; eine Wiederherstellung ist nicht möglich.
-    </p>
-
-    <h2 id="rechte">13. Deine Rechte</h2>
-    <p>Nach der DSGVO stehen dir folgende Rechte zu:</p>
-    <ul>
-      <li><strong>Auskunft</strong> über die zu deiner Person gespeicherten Daten (Art. 15 DSGVO)</li>
-      <li><strong>Berichtigung</strong> unrichtiger oder unvollständiger Daten (Art. 16 DSGVO)</li>
-      <li><strong>Löschung</strong> deiner Daten („Recht auf Vergessenwerden", Art. 17 DSGVO)</li>
-      <li><strong>Einschränkung</strong> der Verarbeitung (Art. 18 DSGVO)</li>
-      <li><strong>Datenübertragbarkeit</strong> in einem strukturierten, gängigen, maschinenlesbaren Format (Art. 20 DSGVO)</li>
-      <li><strong>Widerspruch</strong> gegen eine Verarbeitung auf Grundlage berechtigter Interessen (Art. 21 DSGVO)</li>
-      <li>
-        <strong>Widerruf</strong> erteilter Einwilligungen mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO)
-      </li>
-      <li>
-        <strong>Beschwerde</strong> bei einer Datenschutz-Aufsichtsbehörde (Art. 77 DSGVO). Zuständig
-        ist insbesondere die Aufsichtsbehörde deines Wohnsitzes oder unseres Firmensitzes.
-      </li>
-    </ul>
-    <p>
-      Du kannst diese Rechte jederzeit per E-Mail an
-      <a href="mailto:kontakt@mytenzo.app">kontakt@mytenzo.app</a> ausüben. Innerhalb der App findest du außerdem
-      Funktionen zur direkten Wahrnehmung dieser Rechte:
-    </p>
-    <ul>
-      <li>Datenexport (JSON) über <em>Einstellungen → Daten exportieren</em></li>
-      <li>Vollständige Kontolöschung über <em>Einstellungen → Konto löschen</em></li>
-      <li>Anpassung deiner Profildaten und Coaching-Einstellungen über das Einstellungsmenü</li>
-      <li>Verwaltung der gespeicherten Memory-Einträge über <em>Einstellungen → Erinnerungen</em></li>
-    </ul>
-
-    <h2 id="sicherheit">14. Datensicherheit</h2>
-    <p>
-      Wir setzen technische und organisatorische Maßnahmen ein, um deine Daten gegen Verlust,
-      Manipulation und unberechtigten Zugriff zu schützen:
-    </p>
-    <ul>
-      <li>Transportverschlüsselung (TLS 1.2+) für sämtliche Verbindungen zwischen App und Servern.</li>
-      <li>Verschlüsselte Ablage von Authentifizierungs-Tokens im sicheren Schlüsselbund des Geräts.</li>
-      <li>
-        Strenge Zugriffskontrolle (Row Level Security in unserer Datenbank): Du selbst und nur du hast
-        Zugriff auf deine Daten.
-      </li>
-      <li>
-        Verarbeitung von Passwörtern ausschließlich als kryptografisch gesalzene Hashes (bcrypt/Argon2).
-      </li>
-      <li>Regelmäßige Aktualisierung aller verwendeten Bibliotheken und Sicherheits-Patches.</li>
-    </ul>
-
-    <h2 id="kinder">15. Kinder und Jugendliche</h2>
-    <p>
-      Tenzo richtet sich nicht an Kinder. Du darfst Tenzo nur nutzen, wenn du das nach den Gesetzen
-      deines Landes erforderliche Mindestalter erreicht hast – im Europäischen Wirtschaftsraum in der
-      Regel <strong>16 Jahre</strong>. Liegt eine wirksame Einwilligung deiner Erziehungsberechtigten
-      vor, ist eine Nutzung auch unterhalb dieser Altersgrenze nach Maßgabe von Art. 8 DSGVO möglich.
-    </p>
-    <p>
-      Sollten wir Kenntnis davon erlangen, dass wir Daten eines Kindes ohne erforderliche Einwilligung
-      verarbeitet haben, werden wir diese unverzüglich löschen.
-    </p>
-
-    <h2 id="automatisierung">16. Automatisierte Entscheidungsfindung</h2>
-    <p>
-      Die in Tenzo enthaltene KI generiert <strong>Empfehlungen</strong> (z.&nbsp;B. Vorschläge für
-      Mahlzeiten, Hinweise zu Nährwerten oder Erinnerungen). Diese Empfehlungen entfalten dir gegenüber
-      keine rechtliche Wirkung und beeinträchtigen dich nicht in vergleichbarer Weise im Sinne von
-      Art. 22 DSGVO. Du entscheidest stets selbst, ob du die Empfehlungen annimmst. Eine
-      automatisierte Entscheidungsfindung im Sinne des Art. 22 DSGVO findet nicht statt.
-    </p>
-    <p>
-      Tenzo ist <strong>kein Medizinprodukt</strong> und ersetzt keine ärztliche, ernährungsmedizinische
-      oder therapeutische Beratung. Bei gesundheitlichen Beschwerden oder besonderen Ernährungsbedürfnissen
-      wende dich bitte an entsprechend qualifizierte Fachleute.
-    </p>
-
-    <h2 id="aenderungen">17. Änderungen dieser Erklärung</h2>
-    <p>
-      Wir passen diese Datenschutzerklärung an, wenn sich Funktionen der App, eingesetzte Dienstleister
-      oder rechtliche Anforderungen ändern. Die jeweils aktuelle Fassung ist unter dieser URL abrufbar.
-      Bei wesentlichen Änderungen informieren wir dich zusätzlich in der App oder per E-Mail.
-    </p>
-
-    <h2 id="kontakt">18. Kontakt</h2>
-    <p>
-      Hast du Fragen zum Datenschutz, möchtest du eines deiner Rechte ausüben oder ein Anliegen
-      melden? Schreib uns gerne:
-    </p>
-    <p>
-      Michael Schild<br />
-      Damaschkestraße 8<br />
-      41238 Mönchengladbach<br />
-      E-Mail: <a href="mailto:kontakt@mytenzo.app">kontakt@mytenzo.app</a>
-    </p>
-
-    <footer>
-      <p>
-        © 2026 Michael Schild. Alle Rechte vorbehalten.
-      </p>
-    </footer>
+    <!-- Feature 5 — Privacy (honest) -->
+    <section class="va-feature">
+      <div class="va-feature-text">
+        <span class="tzw-eyebrow">Privatsphäre</span>
+        <h2 class="tzw-h2">Dein Essen<br/>geht uns nichts an.</h2>
+        <p>
+          Tenzo läuft auf Servern in Frankfurt. Voice-Eingaben werden zur Transkription kurz
+          verarbeitet und sofort danach gelöscht — keine Audio-Archive. Deine Mahlzeiten und
+          Profildaten gehören dir: Export und Löschen mit einem Tipp, kein Modelltraining auf
+          deinen Daten, kein Werbe-Tracking, kein Verkauf an Dritte.
+        </p>
+      </div>
+      <div class="va-visual">
+        <div class="va-coach">
+          <div class="va-coach-ico" style="background: linear-gradient(135deg, #BFBFBF, #6E6E6E);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+          </div>
+          <div class="va-coach-body">
+            <div class="va-coach-name">EU-Hosting</div>
+            <div class="va-coach-msg">Daten in Frankfurt. Kein Modelltraining auf deinen Mahlzeiten.</div>
+          </div>
+        </div>
+        <div class="va-coach">
+          <div class="va-coach-ico" style="background: linear-gradient(135deg, #7AB6E8, #3D6E94);">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          </div>
+          <div class="va-coach-body">
+            <div class="va-coach-name">Du behältst die Kontrolle</div>
+            <div class="va-coach-msg">Export und Account-Löschung jederzeit in den Einstellungen.</div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
+
+  <!-- ===== FAQ ================================================= -->
+  <section id="faq" class="tzw-wrap tzw-section">
+    <div class="va-faq">
+      <h2 class="tzw-h2">Häufige Fragen</h2>
+
+      <details>
+        <summary>Kann ich Tenzo schon nutzen?</summary>
+        <p>Tenzo ist aktuell in einer geschlossenen Beta. Wir laden in kleinen Wellen ein — meistens innerhalb von ein bis zwei Wochen, nachdem du dich auf die Liste gesetzt hast. Schreib uns kurz und du bist dabei, sobald wir wieder Plätze frei haben.</p>
+      </details>
+
+      <details>
+        <summary>Welche Sprache wird unterstützt?</summary>
+        <p>Tenzo ist aktuell auf Deutsch optimiert — vom Voice-Modell bis zur Coaching-Sprache. Englisch und andere Sprachen sind frühestens nach dem Beta-Ende geplant.</p>
+      </details>
+
+      <details>
+        <summary>Was passiert, wenn Tenzo etwas falsch versteht?</summary>
+        <p>Jeder erkannte Eintrag lässt sich direkt korrigieren — Menge, Lebensmittel oder Makros. Falls Tenzo komplett daneben liegt, kannst du den Eintrag löschen und neu sprechen oder per Foto bzw. Barcode tracken.</p>
+      </details>
+
+      <details>
+        <summary>Welche Daten sammelt Tenzo?</summary>
+        <p>Nur was nötig ist: deine Mahlzeiten, dein Gewicht, deine Ziele. Optional Apple Health bzw. Health Connect, wenn du es selbst freigibst. Kein Werbe-Tracking, keine Drittanbieter-Analytics. Die vollständige Liste steht in der <a href="datenschutz/">Datenschutzerklärung</a>.</p>
+      </details>
+
+      <details>
+        <summary>Kostet Tenzo etwas?</summary>
+        <p>Die Beta ist kostenlos. Wie das Preismodell nach dem Beta-Ende aussieht, entscheiden wir gemeinsam mit den Beta-Nutzer:innen — finale Preise und Featureset stehen noch nicht fest.</p>
+      </details>
+
+      <details>
+        <summary>Wer steckt hinter Tenzo?</summary>
+        <p>Tenzo ist ein Solo-Projekt aus Deutschland — gebaut von einer Person, die selbst trackt und einen Coach wollte statt eine Tabelle. Kontakt und alle rechtlichen Angaben findest du im <a href="impressum/">Impressum</a>.</p>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===== CTA strip =========================================== -->
+  <section id="signup" class="va-cta-strip">
+    <div class="tzw-wrap">
+      <h2 class="tzw-h2">Beta-Liste.<br/>Per Einladung.</h2>
+      <p>
+        Tenzo ist aktuell per Einladung zugänglich — wir laden in kleinen Wellen ein, damit jede·r
+        Beta-Nutzer:in echte Aufmerksamkeit bekommt. Schreib uns kurz, dass du dabei sein möchtest.
+      </p>
+      <a href="mailto:kontakt@mytenzo.app?subject=Beta-Liste&amp;body=Hi%2C%0A%0Aich%20w%C3%BCrde%20gerne%20zur%20Beta%20eingeladen%20werden.%0A%0AViele%20Gr%C3%BC%C3%9Fe" class="tzw-btn tzw-btn-primary">
+        Email an kontakt@mytenzo.app
+      </a>
+    </div>
+  </section>
+
+  <!-- ===== Footer ============================================== -->
+  <footer class="tzw-footer">
+    <div class="tzw-wrap">
+      <div class="tzw-footer-grid">
+        <div>
+          <div class="tzw-brand" style="margin-bottom: 14px;">TENZO</div>
+          <p style="max-width: 36ch; color: var(--tz-fg-mute); margin: 0;">
+            Voice-first KI-Ernährungscoach. Made in Germany.
+          </p>
+        </div>
+        <div>
+          <h4>App</h4>
+          <ul>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#faq">FAQ</a></li>
+            <li><a href="changelog/">Changelog</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Firma</h4>
+          <ul>
+            <li><a href="impressum/">Impressum</a></li>
+            <li><a href="datenschutz/">Datenschutz</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Kontakt</h4>
+          <ul>
+            <li><a href="mailto:kontakt@mytenzo.app">kontakt@mytenzo.app</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="tzw-footer-meta">
+        <span>© 2026 Michael Schild</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ===== Density tweak via URL ============================== -->
+  <script>
+    // Lightweight: pick up ?density=compact|cozy or persisted choice.
+    const p = new URLSearchParams(location.search);
+    const d = p.get("density") || localStorage.getItem("tenzo-density");
+    if (d === "compact") document.body.dataset.density = "compact";
+    if (p.get("voice") === "off") {
+      // Replace demo mount with a static "screenshot" placeholder.
+      window.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll("[data-tenzo-voice-demo]").forEach((el) => {
+          el.removeAttribute("data-tenzo-voice-demo");
+          el.innerHTML = '<div class="va-static-demo"><div class="va-static-eye">VOICE-DEMO AUS</div><div class="va-static-msg">Statische Vorschau in der Beta-Sequenz</div></div>';
+        });
+        const s = document.createElement("style");
+        s.textContent = '.va-static-demo{display:grid;place-items:center;text-align:center;width:min(380px,88vw);aspect-ratio:9/16;border:1px dashed rgba(255,255,255,0.18);border-radius:36px;color:rgba(255,255,255,0.45);font-size:13px;padding:48px;background:linear-gradient(180deg,#0E0E0E,#181818);}.va-static-eye{font-size:10px;letter-spacing:0.22em;color:#F08A1F;margin-bottom:8px}.va-static-msg{font-size:14px;line-height:1.5}';
+        document.head.appendChild(s);
+      });
+    }
+  </script>
+  <script src="voice-demo.js"></script>
 </body>
 </html>
