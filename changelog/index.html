@@ -24,10 +24,13 @@
       align-items: start;
     }
     .cl-entry:first-of-type { border-top: none; padding-top: 0; }
+    .cl-side { position: sticky; top: 88px; }
     @media (max-width: 720px) {
       .cl-entry { grid-template-columns: 1fr; gap: 16px; }
+      /* On mobile the rail sits ABOVE the body (single column), so a
+         sticky position makes it overlap the entry text as you scroll. */
+      .cl-side { position: static; top: auto; }
     }
-    .cl-side { position: sticky; top: 88px; }
     .cl-version {
       font-family: var(--tz-font-mono);
       font-size: 18px; font-weight: 500; color: var(--tz-fg);
