@@ -119,7 +119,7 @@
       <h1 class="tzw-h1" style="font-size: clamp(40px, 5.6vw, 72px);">Changelog</h1>
       <p class="tzw-lede" style="margin-bottom: 16px;">Was sich in Tenzo geändert hat — Versionen, Daten, neue Features.</p>
       <div class="cl-meta">
-        <span>Letzte Aktualisierung: 23. Mai 2026</span>
+        <span>Letzte Aktualisierung: 24. Mai 2026</span>
         <span>·</span>
         <a href="../#signup">Per E-Mail benachrichtigen</a>
       </div>
@@ -128,6 +128,45 @@
 
   <section class="cl-feed">
     <div class="tzw-wrap">
+
+      <!-- 2026-05-24 — Bottom-sheet polish + tracking accuracy -->
+      <article class="cl-entry">
+        <div class="cl-side">
+          <div class="cl-version">Bottom-Sheet &amp; Tracking</div>
+          <div class="cl-date">24. Mai 2026</div>
+        </div>
+        <div class="cl-body">
+          <h3>Schnellerer Tageswechsel, präzisere Makros</h3>
+
+          <div class="cl-section added">
+            <h4><span class="cl-dot"></span>Neu</h4>
+            <ul class="cl-list">
+              <li><strong>Lebensmittel-Karten aufklappbar.</strong> Im „Hinzufügen"-Bereich tippst du auf eine Karte, um die Makros pro 100&nbsp;g zu sehen. Tracken geht weiterhin nur über den orangen Plus-Knopf — kein versehentliches Loggen mehr.</li>
+              <li><strong>Karten-Layout aufgeräumt.</strong> Badge (Passend / Standard / Rezept) sitzt jetzt über dem Namen statt davor, damit lange Lebensmittelnamen mehr Platz haben.</li>
+            </ul>
+          </div>
+
+          <div class="cl-section improved">
+            <h4><span class="cl-dot"></span>Verbessert</h4>
+            <ul class="cl-list">
+              <li><strong>Tageswechsel im Heute-Tab.</strong> Vor- und Nachbar-Tage werden vorab geladen — das Antippen von ‹ oder › zeigt direkt die richtigen Zahlen statt kurz Nullen anzuzeigen.</li>
+              <li><strong>Suche findet kurze Begriffe wieder.</strong> „Ei" zeigt jetzt das tatsächliche Ei ganz oben statt Treffern wie „Reis" (enthält „ei"). Wort-Anfänge werden bevorzugt, und die Datenbank-Suche springt schon ab zwei Buchstaben an.</li>
+              <li><strong>Mengen-Editor lässt nichts mehr fallen.</strong> Wenn du im Mahlzeit-Editor neue Gramm eingibst und die Karte direkt zuklappst, wird die Änderung jetzt sauber gespeichert.</li>
+              <li><strong>Server-seitige Makro-Plausibilität.</strong> Wenn beim Bearbeiten einer Mahlzeit die eingegebenen Makros nicht mit den Kalorien zusammenpassen, korrigiert der Server die Kalorien automatisch nach Atwater.</li>
+              <li><strong>Foto-Kontext-Dialog überarbeitet.</strong> Texteingabe sitzt jetzt sauber auf der Grundlinie, dunkler Hintergrund bedeckt das ganze Bild (statt nur den oberen Teil), und die Lade-Anzeige sagt „Tenzo schaut sich das Foto an" — passend zum erweiterten Foto-Flow.</li>
+              <li><strong>„Gegessen" statt „verbraucht".</strong> Im Kalorien-Ring steht jetzt korrekt, wie viel du gegessen hast — nicht wie viel du verbraucht hättest.</li>
+              <li><strong>Live-Vorschau ruhiger.</strong> Beim Eingeben einer neuen Gramm-Zahl aktualisieren sich die Makro-Kacheln erst nach kurzer Pause, statt bei jedem Tastendruck zu flackern.</li>
+            </ul>
+          </div>
+
+          <div class="cl-section fixed">
+            <h4><span class="cl-dot"></span>Fixes</h4>
+            <ul class="cl-list">
+              <li><strong>Vier defekte Mahlzeiten-Einträge korrigiert</strong> (Käsespätzle, Brokkoli, Kräuter Quark, Hähnchengeschnetzeltes vom 21. Mai), bei denen Kalorien und Makros nicht zusammenpassten.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
 
       <!-- 2026-05-23 — Photo flow + Update banner -->
       <article class="cl-entry">
