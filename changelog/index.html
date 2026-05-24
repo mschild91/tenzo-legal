@@ -129,6 +129,38 @@
   <section class="cl-feed">
     <div class="tzw-wrap">
 
+      <!-- 2026-05-24 — Voice-chat hardening + classifier context + food-name cleanup -->
+      <article class="cl-entry">
+        <div class="cl-side">
+          <div class="cl-version">Gespräch &amp; Foto</div>
+          <div class="cl-date">24. Mai 2026</div>
+        </div>
+        <div class="cl-body">
+          <h3>Tenzo versteht deinen Kontext besser</h3>
+
+          <div class="cl-section improved">
+            <h4><span class="cl-dot"></span>Verbessert</h4>
+            <ul class="cl-list">
+              <li><strong>Vorher gesagter Kontext zählt jetzt mehr.</strong> Wenn du ankündigst „ich scanne gleich den Barcode" oder „ich esse gerade ein Restaurant-Gericht", folgt Tenzo dieser Absicht — statt blind das Standard-Verhalten für Barcode oder Foto anzuwenden.</li>
+              <li><strong>„Ersetze X durch Y" als eine Aktion.</strong> Sätze wie „ersetze die Brötchen durch das Sandwich" oder „tausche A gegen B" werden jetzt in einem Schritt umgesetzt: alter Eintrag weg, neuer rein.</li>
+              <li><strong>Mahlzeitentyp bleibt nach Verschieben kleben.</strong> Wenn du einen Eintrag von „Snack" zu „Abendessen" schiebst und danach noch eine Portion trackst, landet die direkt in „Abendessen" — nicht wieder im Tageszeit-Default.</li>
+              <li><strong>Mehrere Lebensmittel — saubere Bestätigung.</strong> Wenn du in einer Nachricht mehrere Sachen nennst, bekommst du eine konkrete Liste was getrackt wurde. Was nicht geklappt hat (z. B. unsichere Menge bei Restaurant-Resten), wird offen ausgewiesen — keine pauschale „Getrackt"-Antwort die alles verdeckt.</li>
+              <li><strong>Foto-Klassifizierer nutzt deine Beschreibung.</strong> Wenn du beim Foto einen Hinweis tippst („Mein Mittagessen", „Burger vom Imbiss"), nimmt Tenzo das als starkes Signal — auch wenn das Bild mehrere einzeln erkennbare Komponenten zeigt.</li>
+              <li><strong>Restaurant-Teller besser erkannt.</strong> Teller mit mehreren sichtbaren Komponenten (z. B. Hähnchen + Kartoffeln + Salat) werden zuverlässiger als Mahlzeit eingeordnet, nicht als lose Zutatenliste.</li>
+              <li><strong>Sauberere Produktnamen.</strong> Beim Barcode-Scan werden Preis- und Verpackungs-Angaben („750g 2,49&nbsp;€ 1kg 3,32&nbsp;€") automatisch aus dem Produktnamen entfernt. Im Tracking steht nur noch das eigentliche Produkt.</li>
+            </ul>
+          </div>
+
+          <div class="cl-section fixed">
+            <h4><span class="cl-dot"></span>Fixes</h4>
+            <ul class="cl-list">
+              <li><strong>„120g → 120g" bei Mahlzeit-Korrekturen.</strong> Wenn du nur den Namen oder die Makros änderst (nicht die Menge), zeigt die Bestätigung jetzt nur die neuen Werte — kein Pfeil mit identischen Mengen mehr.</li>
+              <li><strong>Verunreinigter „EDEKA Harry Sammy Vollkorn Super Sandwich"-Eintrag bereinigt.</strong> Der bestehende Eintrag mit Preisangabe im Namen wurde nachträglich auf den sauberen Produktnamen reduziert.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
       <!-- 2026-05-24 — Bottom-sheet polish + tracking accuracy -->
       <article class="cl-entry">
         <div class="cl-side">
