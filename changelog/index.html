@@ -129,6 +129,41 @@
   <section class="cl-feed">
     <div class="tzw-wrap">
 
+      <!-- 2026-05-27 — Barcode-Riegel: Chip-Widget + Sanity-Gate -->
+      <article class="cl-entry">
+        <div class="cl-side">
+          <div class="cl-version">Barcode &amp; Riegel</div>
+          <div class="cl-date">27. Mai 2026</div>
+        </div>
+        <div class="cl-body">
+          <h3>Proteinriegel scannen — eine Tipp-Aktion, keine 100&nbsp;g mehr</h3>
+
+          <div class="cl-section added">
+            <h4><span class="cl-dot"></span>Neu</h4>
+            <ul class="cl-list">
+              <li><strong>Portion-Chip-Widget bei Einzelportions-Barcodes.</strong> Wenn du den Barcode eines Riegels (Proteinriegel, Müsliriegel, Schokoriegel, Energy-Bar) scannst und Open Food Facts das Riegel-Gewicht hinterlegt hat, fragt Tenzo nicht mehr „Wie viel?" — du tippst direkt auf ½, 1 oder 2 Riegel. Default ist ein ganzer Riegel mit korrekter Gramm-Zahl statt der alten 100&nbsp;g-Annahme.</li>
+              <li><strong>Andere Menge.</strong> Wenn du dreiviertel gegessen hast oder mehrere Riegel auf einmal — eine Eingabe in Gramm tippt sich in zwei Sekunden ins Widget.</li>
+              <li><strong>Web-Suche wenn der Barcode unbekannt ist.</strong> Wenn Open Food Facts den Barcode nicht hat aber du das Produkt in derselben Konversation benannt hast („ich scanne gleich den ESN-Riegel"), sucht Tenzo den Namen jetzt direkt in BLS &amp; Web — fragt nach dem Riegel-Gewicht falls nötig, und kommt mit korrekten Werten zurück. Der Nährwerttabellen-Foto-Weg bleibt als letzter Fallback erhalten.</li>
+            </ul>
+          </div>
+
+          <div class="cl-section improved">
+            <h4><span class="cl-dot"></span>Verbessert</h4>
+            <ul class="cl-list">
+              <li><strong>Verpackungs-Kategorien erkannt.</strong> Tenzo unterscheidet jetzt Einzelportions-Verpackungen (Riegel, Single-Pack) von Vorratsgrößen (Reissack, Pasta-Packung) und passt die Vorgehensweise an — automatisch beim Scan.</li>
+              <li><strong>Schnellere Buchung.</strong> Beim Einzelportions-Scan landet die Mahlzeit ohne LLM-Antwort sofort im Tag. Spürbar weniger Wartezeit, kein „Tenzo denkt nach".</li>
+            </ul>
+          </div>
+
+          <div class="cl-section fixed">
+            <h4><span class="cl-dot"></span>Fixes</h4>
+            <ul class="cl-list">
+              <li><strong>Keine fehlerhaften Cache-Einträge mehr.</strong> Wenn ein Open-Food-Facts-Eintrag die Pro-Portion- und Pro-100&nbsp;g-Werte widersprüchlich angibt (z.&nbsp;B. Riegel-Werte fälschlich in der 100&nbsp;g-Spalte), lehnt Tenzo den Eintrag ab statt ihn zu speichern — verhindert das ältere Problem, bei dem ein Riegel mit 184&nbsp;kcal/100&nbsp;g im Cache landete und Folge-Suchen den falschen Eintrag fanden.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
+
       <!-- 2026-05-25 — Getränke bucket + smooth keyboard + polish bundle -->
       <article class="cl-entry">
         <div class="cl-side">
