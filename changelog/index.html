@@ -119,7 +119,7 @@
       <h1 class="tzw-h1" style="font-size: clamp(40px, 5.6vw, 72px);">Changelog</h1>
       <p class="tzw-lede" style="margin-bottom: 16px;">Was sich in Tenzo geändert hat — Versionen, Daten, neue Features.</p>
       <div class="cl-meta">
-        <span>Letzte Aktualisierung: 4. Juni 2026</span>
+        <span>Letzte Aktualisierung: 5. Juni 2026</span>
         <span>·</span>
         <a href="../#signup">Per E-Mail benachrichtigen</a>
       </div>
@@ -128,6 +128,33 @@
 
   <section class="cl-feed">
     <div class="tzw-wrap">
+
+      <!-- 2026-06-05 — Zuverlässigkeit: Retry + keine Doppel-Tracks -->
+      <article class="cl-entry">
+        <div class="cl-side">
+          <div class="cl-version">Zuverlässigkeit</div>
+          <div class="cl-date">5. Juni 2026</div>
+        </div>
+        <div class="cl-body">
+          <h3>Schluss mit „nochmal eintippen" — stabileres Tracken</h3>
+
+          <div class="cl-section improved">
+            <h4><span class="cl-dot"></span>Verbessert</h4>
+            <ul class="cl-list">
+              <li><strong>Kein „nochmal eintippen" mehr nach einem Hänger.</strong> Wenn beim Tracken kurz ein Server-Problem auftrat, kam „Unbekannter Fehler" und du musstest die Menge neu eingeben. Tenzo wiederholt solche Fälle jetzt automatisch — und trackt dieselbe Mahlzeit dabei garantiert nur einmal (keine doppelten Einträge mehr).</li>
+              <li><strong>„gefrühstückt" landet im Frühstück.</strong> Sagst du „ich habe einen Shake gefrühstückt", ordnet Tenzo das jetzt korrekt dem Frühstück zu, statt der aktuellen Uhrzeit zu folgen.</li>
+              <li><strong>Gelöschtes nachvollziehbar.</strong> „Was hatte ich gestern getrackt und gelöscht?" kann Tenzo jetzt für die letzten 24 Stunden beantworten, statt zu raten.</li>
+            </ul>
+          </div>
+
+          <div class="cl-section fixed">
+            <h4><span class="cl-dot"></span>Fixes</h4>
+            <ul class="cl-list">
+              <li><strong>Falsche Barcode-Werte überschreiben gute Einträge nicht mehr.</strong> Lieferte ein Barcode-Scan ausnahmsweise unsinnige Nährwerte (z.&nbsp;B. Brot-Werte für einen Quark), wurde der gespeicherte, korrekte Eintrag überschrieben — und alle folgenden Scans waren falsch. Solche Ausreißer werden jetzt erkannt und ignoriert.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
 
       <!-- 2026-06-04 — Klarheit + Foto-Mahlzeiten + Tag-Wechsel -->
       <article class="cl-entry">
