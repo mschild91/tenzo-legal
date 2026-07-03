@@ -119,7 +119,7 @@
       <h1 class="tzw-h1" style="font-size: clamp(40px, 5.6vw, 72px);">Changelog</h1>
       <p class="tzw-lede" style="margin-bottom: 16px;">Was sich in Tenzo geändert hat — Versionen, Daten, neue Features.</p>
       <div class="cl-meta">
-        <span>Letzte Aktualisierung: 2. Juli 2026</span>
+        <span>Letzte Aktualisierung: 3. Juli 2026</span>
         <span>·</span>
         <a href="../#signup">Per E-Mail benachrichtigen</a>
       </div>
@@ -128,6 +128,49 @@
 
   <section class="cl-feed">
     <div class="tzw-wrap">
+
+      <!-- 2026-07-03 — Tracken im Chat wird deutlich zuverlässiger -->
+      <article class="cl-entry">
+        <div class="cl-side">
+          <div class="cl-version">Tracking</div>
+          <div class="cl-date">3. Juli 2026</div>
+        </div>
+        <div class="cl-body">
+          <h3>Tracken im Chat wird deutlich zuverlässiger — und Fehler enden nicht mehr in Sackgassen</h3>
+
+          <div class="cl-section added">
+            <h4><span class="cl-dot"></span>Neu</h4>
+            <ul class="cl-list">
+              <li><strong>„Nochmal senden" bei Verbindungsproblemen.</strong> Wenn eine Nachricht wegen eines Ausfalls verloren geht, erscheint an der Fehlermeldung ein Button, der sie mit einem Tipp erneut abschickt — kein erneutes Eintippen oder Einsprechen mehr.</li>
+              <li><strong>Sprachaufnahme abbrechen.</strong> Ein X in der Aufnahme-Leiste verwirft die laufende Aufnahme, ohne sie zu senden.</li>
+            </ul>
+          </div>
+
+          <div class="cl-section improved">
+            <h4><span class="cl-dot"></span>Verbessert</h4>
+            <ul class="cl-list">
+              <li><strong>Mengen-Korrekturen werden als Korrektur erkannt.</strong> „Es waren doch nur 150 g" direkt nach dem Tracken ändert jetzt den Eintrag, statt einen zweiten anzulegen — der Tag wird nicht mehr doppelt gezählt.</li>
+              <li><strong>Die Antwort auf „Wie viel?" geht nicht mehr verloren.</strong> Nach einem Barcode-Scan reicht die nackte Mengenangabe („55 g") — sie wird sicher dem gescannten Produkt zugeordnet und getrackt.</li>
+              <li><strong>Mehrere Lebensmittel in einer Nachricht landen vollständig und richtig zugeordnet im Tagebuch</strong> — auch wenn zweimal dieselbe Zutat vorkommt (Kaffee mit Milch und Müsli mit Milch).</li>
+              <li><strong>Überlegungsfragen bleiben Überlegungen.</strong> „Was wäre, wenn ich auf 2.300 kcal senke?" oder reine Rechenfragen ändern nichts mehr an Profil oder Tagebuch — Tenzo rechnet nur und ändert erst nach deinem Okay.</li>
+              <li><strong>Mahlzeiten-Typ passt zur Uhrzeit — in deiner Zeitzone.</strong> Eine Portion Bolognese am Nachmittag ist jetzt ein Mittag- oder Abendessen, kein „Snack", und auf Reisen zählt die lokale Zeit.</li>
+              <li><strong>Barcodes sind wieder auffindbar.</strong> Nach einem Nährwert-Foto wird das Produkt mit dem echten gescannten Barcode gespeichert (nicht mehr mit einem Aufdruck-Code) — ein späterer Scan findet es zuverlässig. Ungültige Codes werden gar nicht erst gespeichert, und ein bereits vergebener Barcode endet freundlich beim existierenden Produkt statt in einer Fehlermeldung.</li>
+              <li><strong>Beim Scannen keine Platzhalter-„Portionen" mehr.</strong> Ist keine echte Portionsgröße hinterlegt, fragt Tenzo nach der Menge, statt 100 g oder die ganze Packung anzunehmen.</li>
+              <li><strong>Defizit-Einstellung ohne Kauderwelsch.</strong> Die Auswahl zeigt nur noch die für dein Ziel relevante Richtung („~18 % unter deinem Verbrauch" beim Abnehmen), auf Deutsch — und das Kalorienziel skaliert als Prozentsatz deines Verbrauchs mit sicheren Untergrenzen, die Tenzo dir offen sagt, statt still zu deckeln.</li>
+              <li><strong>Onboarding fragt nach dem Ziel dahinter.</strong> Zielgewicht, Wunschtermin und Herangehensweise werden jetzt aktiv erfragt, und die Auswahl-Optionen (Ziel, Aktivitätslevel, Coaching-Stil) erklären sich in einer Zeile selbst.</li>
+            </ul>
+          </div>
+
+          <div class="cl-section fixed">
+            <h4><span class="cl-dot"></span>Fixes</h4>
+            <ul class="cl-list">
+              <li><strong>Fehlermeldungen sind wieder natürliche Sätze.</strong> Interne Anweisungstexte tauchen nicht mehr in Tenzos Antworten auf.</li>
+              <li><strong>Keine wortgleichen Wiederholungs-Schleifen mehr.</strong> Wenn Nährwerte fehlen, erklärt Tenzo konkret, was hilft (Menge, Werte oder ein Foto), statt denselben Satz zu wiederholen — und nutzt Werte, die es kurz zuvor selbst recherchiert hat.</li>
+              <li><strong>„Gesünder essen" ist als Ziel-Auswahl entfernt.</strong> Es hatte keinen messbaren Coaching-Kreislauf dahinter — die klaren Ziele (Abnehmen, Muskelaufbau, Halten, Rekomposition) bleiben.</li>
+            </ul>
+          </div>
+        </div>
+      </article>
 
       <!-- 2026-07-02 — Coaching wird zum Wochen-Begleiter -->
       <article class="cl-entry">
