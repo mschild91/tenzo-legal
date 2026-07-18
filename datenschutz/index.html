@@ -26,7 +26,7 @@
     <div class="tzw-wrap">
       <span class="tzw-eyebrow">Privatsphäre</span>
       <h1 class="tzw-h1">Datenschutz</h1>
-      <p class="tzw-lede">Tenzo App · Stand: 25. April 2026 · Version 1.0</p>
+      <p class="tzw-lede">Tenzo App · Stand: 18. Juli 2026 · Version 1.1</p>
     </div>
   </section>
 
@@ -113,11 +113,28 @@
       <li>Körperfettanteil (sofern verfügbar)</li>
       <li>Trainingseinheiten/Workouts</li>
       <li>Selbst protokollierte Mahlzeiten mit Nährwerten (Kalorien, Protein, Kohlenhydrate, Fette, Ballaststoffe, Zucker)</li>
+      <li>Freiwillig mitgeteilte gesundheitliche Besonderheiten oder Medikamente, die Tenzo beim Ernährungs-Coaching berücksichtigen soll</li>
     </ul>
     <p>
       Diese Daten gehören zu den besonderen Kategorien personenbezogener Daten („Gesundheitsdaten")
       gemäß Art. 9 Abs. 1 DSGVO. Ich verarbeite sie ausschließlich auf Grundlage deiner
       <strong>ausdrücklichen Einwilligung</strong> (Art. 9 Abs. 2 lit. a DSGVO).
+    </p>
+    <p>
+      Vor der freiwilligen Angabe gesundheitlicher Besonderheiten zeige ich dir einen gesonderten,
+      versionierten Einwilligungsdialog. Dort erfährst du konkret, zu welchem Zweck ich die Angabe
+      speichere, wann sie an OpenAI übermittelt wird, dass die Nutzung auch ohne Einwilligung möglich
+      ist und wie du widerrufen kannst. Eine bloße Fortsetzung der App-Nutzung, eine vorausgewählte
+      Option oder Schweigen gilt nicht als Einwilligung; erforderlich ist deine aktive Bestätigung
+      „Ausdrücklich einwilligen".
+    </p>
+    <p>
+      Du kannst die Einwilligung jederzeit in den App-Einstellungen oder direkt im Chat widerrufen.
+      Die freiwillige Profilangabe und gespeicherte Gesundheits-Memories werden dann entfernt und nicht
+      mehr für dein Coaching verwendet. Der Widerruf berührt nicht die Rechtmäßigkeit der Verarbeitung
+      vor dem Widerruf. Als Nachweis speichere ich ohne den Inhalt deiner Gesundheitsangabe lediglich
+      Zweck, Entscheidung, Version des Einwilligungstextes und der Datenschutzerklärung, Quelle sowie
+      Zeitstempel.
     </p>
 
     <h3>2.3 Kommunikations- und Coaching-Inhalte</h3>
@@ -226,10 +243,13 @@
     <h3>5.2 Konversation mit dem Sprachmodell</h3>
     <p>
       Deine Eingaben (Texte oder Transkripte) werden gemeinsam mit deinem Coaching-Kontext (z.&nbsp;B.
-      Ziele, Tageswerte, gespeicherten Vorlieben) an das Large-Language-Model
-      <strong>Claude</strong> der Firma <strong>Anthropic</strong> übermittelt (Modelle der Reihe
-      <em>Haiku</em> für tägliche Konversationen, <em>Sonnet</em> für komplexere Anliegen). Die Antwort
-      des Modells wird an dich zurückgesendet und in deiner Konversationshistorie gespeichert
+      Ziele, Tageswerte, gespeicherten Vorlieben und – nur wenn für die aktuelle Einordnung relevant –
+      freiwillig mitgeteilten gesundheitlichen Besonderheiten) an ein Large-Language-Model übermittelt.
+      Für tägliche Coaching-Konversationen nutze ich Modelle von <strong>OpenAI</strong>; für die
+      vorbereitende wöchentliche Coaching-Auswertung Modelle von <strong>Anthropic</strong>. Freiwillige
+      Gesundheitsangaben werden nicht in die vorbereitende wöchentliche Auswertung kopiert, sondern
+      – soweit aktuell relevant – erst bei der persönlichen Ausgabe berücksichtigt. Die Antwort des
+      Modells wird an dich zurückgesendet und in deiner Konversationshistorie gespeichert
       (Tabelle <code>chat_messages</code>).
     </p>
 
@@ -317,9 +337,10 @@
     <p>
       Die importierten Daten werden in deinem Tenzo-Profil (Tabelle <code>health_records</code>,
       <code>daily_steps</code>, <code>weight_logs</code>) gespeichert und ausschließlich genutzt, um
-      dein Coaching zu personalisieren (Bedarfsberechnung, Trends, Erinnerungen). Sie werden
-      <strong>nicht</strong> an Dritte weitergegeben und <strong>nicht</strong> für Werbezwecke
-      verwendet.
+      dein Coaching zu personalisieren (Bedarfsberechnung, Trends, Erinnerungen). Soweit einzelne
+      Werte für eine konkrete Coaching-Antwort erforderlich sind, verarbeiten die in Abschnitt 5 und
+      10 genannten KI-Dienstleister sie als Auftragsverarbeiter. Eine sonstige Weitergabe an Dritte
+      oder Nutzung für Werbezwecke findet <strong>nicht</strong> statt.
     </p>
     <p>
       Du kannst die Verbindung zu Apple Health/Health Connect jederzeit in den Geräteeinstellungen
@@ -388,7 +409,7 @@
         </tr>
         <tr>
           <td>OpenAI, L.L.C.</td>
-          <td>Spracherkennung (Whisper), Sprachausgabe (TTS)</td>
+          <td>KI-Sprachmodell für tägliche Coaching-Konversationen, Spracherkennung (Whisper), Sprachausgabe (TTS)</td>
           <td>USA</td>
         </tr>
         <tr>
@@ -457,8 +478,18 @@
     </p>
     <ul>
       <li>
-        <strong>Konto- und Profildaten, Mahlzeiten- und Gesundheitsdaten, Konversationsverlauf,
-        Memory-Einträge:</strong> bis zur Löschung deines Kontos durch dich.
+        <strong>Konto- und Profildaten, Mahlzeiten- und Gesundheitsdaten sowie Memory-Einträge:</strong>
+        bis zur Löschung durch dich, zum Widerruf einer dafür erforderlichen Einwilligung oder bis zur
+        Löschung deines Kontos.
+      </li>
+      <li>
+        <strong>Konversationsverlauf:</strong> grundsätzlich 14 Tage; danach wird er automatisiert
+        gelöscht. Eine Kontolöschung entfernt ihn sofort.
+      </li>
+      <li>
+        <strong>Einwilligungsnachweise:</strong> Zweck, Entscheidung, Text-/Datenschutzversion, Quelle
+        und Zeitstempel bis zur Löschung deines Kontos. Sie enthalten nicht den Inhalt deiner
+        Gesundheitsangabe.
       </li>
       <li>
         <strong>Sprachaufnahmen und Mahlzeitenfotos:</strong> nur flüchtig zur Analyse, keine dauerhafte
@@ -510,6 +541,7 @@
       <li>Vollständige Kontolöschung über <em>Einstellungen → Konto löschen</em></li>
       <li>Anpassung deiner Profildaten und Coaching-Einstellungen über das Einstellungsmenü</li>
       <li>Verwaltung der gespeicherten Memory-Einträge über <em>Einstellungen → Erinnerungen</em></li>
+      <li>Einwilligung oder Widerruf für freiwillige Gesundheitsangaben über <em>Einstellungen → Rechtliches → Gesundheitsangaben</em></li>
     </ul>
 
     <h2 id="sicherheit">14. Datensicherheit</h2>
@@ -551,9 +583,12 @@
       automatisierte Entscheidungsfindung im Sinne des Art. 22 DSGVO findet nicht statt.
     </p>
     <p>
-      Tenzo ist <strong>kein Medizinprodukt</strong> und ersetzt keine ärztliche, ernährungsmedizinische
-      oder therapeutische Beratung. Bei gesundheitlichen Beschwerden oder besonderen Ernährungsbedürfnissen
-      wende dich bitte an entsprechend qualifizierte Fachleute.
+      Tenzo ist <strong>kein Medizinprodukt</strong> und bietet ausschließlich allgemeines
+      Ernährungscoaching. Tenzo diagnostiziert, behandelt, lindert oder überwacht keine Erkrankungen,
+      erstellt keine krankheitsspezifischen Therapiepläne und berät nicht zu Wechselwirkungen,
+      Dosierung, Änderung oder Absetzung von Medikamenten. Bei gesundheitlichen Beschwerden,
+      medizinischen Entscheidungen oder besonderen Ernährungsbedürfnissen wende dich bitte an
+      entsprechend qualifizierte Fachleute.
     </p>
 
     <h2 id="aenderungen">17. Änderungen dieser Erklärung</h2>
